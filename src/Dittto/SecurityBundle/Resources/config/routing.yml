@@ -6,7 +6,3 @@ dittto_security_check:
     path:     /check
     defaults: { _controller: DitttoSecurityBundle:Security:check }
 
-dittto_security_logout:
-    path:     /logout
-    defaults: { _controller: DitttoSecurityBundle:Security:logout }
-

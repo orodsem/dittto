@@ -61,20 +61,4 @@ class SecurityController extends BaseController
     {
         return $this->render('DitttoSecurityBundle:Security:login.html.twig', $data);
     }
-
-    public function checkAction()
-    {
-        /** @var User $user */
-        $user = $this->getUser();
-
-        if ($user->hasRole(Role::ROLE_ADMIN)) {
-            $role = '';
-        }
-        return $this->redirectToRoute('dittto_recognition_dashboard');
-    }
-
-    public function logoutAction()
-    {
-        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
-    }
 }

@@ -16,10 +16,10 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
-                # if you are using Symfony < 2.8, use the following config instead:
-                # csrf_provider: form.csrf_provider
-
-            logout:       true
+                default_target_path: dittto_recognition_dashboard # redirect after login
+            logout:
+                path: /logout   # logout uri
+                target: /login  # after logged out go to login page
             anonymous:    true
 
     access_control:

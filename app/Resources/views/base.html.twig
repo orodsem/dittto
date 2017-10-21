@@ -7,6 +7,9 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+            {% if is_granted('ROLE_USER') %}
+                <li><a href="{{ logout_url(key = null) }}">Logout</a></li>
+            {% endif %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
