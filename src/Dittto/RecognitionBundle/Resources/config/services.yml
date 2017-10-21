@@ -1,0 +1,4 @@
+services:
+#    dittto_recognition.example:
+#        class: Dittto\RecognitionBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

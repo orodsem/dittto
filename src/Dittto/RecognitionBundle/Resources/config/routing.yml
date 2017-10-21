@@ -1,0 +1,3 @@
+dittto_recognition_dashboard:
+    path:     /dashboard
+    defaults: { _controller: DitttoRecognitionBundle:Default:dashboard }
