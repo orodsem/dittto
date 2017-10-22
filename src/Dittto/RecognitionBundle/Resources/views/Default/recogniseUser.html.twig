@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>recogniseUser</h1>
+
+    <form name="recognition" method="post">
+        {% for criteria in form.criteria.vars.choices %}
+            <div>
+                <input type="checkbox"
+                       value="{{ criteria.data.id }}"
+                       name="recognition[criteria][]"
+                       id="recognition_criteria_{{ criteria.data.id }}"
+                />
+                <label
+                        for="recognition_criteria_{{ criteria.data.id }}">
+                    <img src="{{ asset(criteria.data.image) }}" style="width: 20px; height: 20px;">
+                </label>
+                <label
+                        for="recognition_criteria_{{ criteria.data.id }}">
+                    {{ criteria.data.title }}
+                </label>
+            </div>
+        {% endfor %}
+
+        {{ form_widget(form.receivers, { 'attr': {'style': 'width:200px'} }) }}
+        <div>
+            <button type="submit" id="recognition_save" name="recognition[save]" class="btn btn-primary">Dittto</button>
+        </div>
+
+        {{ form_widget(form._token) }}
+    </form>
+{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#recognition_receivers').select2({
+            placeholder: 'search a champion'
+        });
+    });
+</script>
+{% endblock %}
+
+

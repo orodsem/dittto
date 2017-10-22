@@ -38,15 +38,14 @@ class User extends BaseUser
      */
     private $isDeleted;
 
-//    /**
-//     * @ORM\ManyToMany(targetEntity="\Dittto\RecognitionBundle\Entity\Recognition", mappedBy="receivers")
-//     */
-//    protected $recognitions;
+    /**
+     * @ORM\ManyToMany(targetEntity="\Dittto\RecognitionBundle\Entity\Recognition", mappedBy="receivers")
+     */
+    protected $recognitions;
 
     public function __construct()
     {
-        // may not be needed, see section on salt below
-//        $this->recognitions = new ArrayCollection();
+        $this->recognitions = new ArrayCollection();
         parent::__construct();
     }
 
@@ -66,13 +65,13 @@ class User extends BaseUser
         $this->isDeleted = $isDeleted;
     }
 
-//    /**
-//     * @param mixed $recognitions
-//     */
-//    public function setRecognitions($recognitions)
-//    {
-//        $this->recognitions = $recognitions;
-//    }
+    /**
+     * @param mixed $recognitions
+     */
+    public function setRecognitions($recognitions)
+    {
+        $this->recognitions = $recognitions;
+    }
 
     /**
      * @return mixed
@@ -104,5 +103,13 @@ class User extends BaseUser
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullname()
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }
