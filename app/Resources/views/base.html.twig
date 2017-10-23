@@ -4,6 +4,14 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
 
+        {# display the env ONLY if it's in DEV #}
+        {% if app.environment in ['dev'] %}
+            {{ app.environment }}
+        {% endif %}
+
+        {# TODO: css file and other related file related to each client dynamically generate here #}
+        <link rel="stylesheet" href="{{ asset( app.environment  ~ '/css/style.css') }}" />
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
 
@@ -16,10 +24,12 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-            {% if is_granted('ROLE_USER') %}
-                <li><a href="{{ logout_path(key = null) }}">Logout</a></li>
-                <li><a href="{{ path('dittto_recognition_recognise_user') }}">Recognise</a></li>
-            {% endif %}
+        {# This is our menu that displayed to Authed users #}
+        {% if is_granted('ROLE_USER') %}
+            <li><a href="{{ logout_path(key = null) }}">Logout</a></li>
+            <li><a href="{{ path('dittto_recognition_dashboard') }}">Home</a></li>
+            <li><a href="{{ path('dittto_recognition_recognise_user') }}">Recognise</a></li>
+        {% endif %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
