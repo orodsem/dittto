@@ -66,6 +66,13 @@ class User extends BaseUser
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getRecognitions()
+    {
+        return $this->recognitions;
+    }
+    /**
      * @param mixed $recognitions
      */
     public function setRecognitions($recognitions)

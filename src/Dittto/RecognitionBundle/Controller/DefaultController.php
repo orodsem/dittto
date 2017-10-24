@@ -4,14 +4,34 @@ namespace Dittto\RecognitionBundle\Controller;
 
 use Dittto\RecognitionBundle\Entity\Recognition;
 use Dittto\RecognitionBundle\Form\RecognitionType;
+use Dittto\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function dashboardAction()
+    public function dashboardAction(Request $request)
     {
-        return $this->render('DitttoRecognitionBundle:Default:dashboard.html.twig');
+        /** @var User $user */
+        $user = $this->getUser();
+
+        // number of recog. received by user
+        $userRecognitions = $user->getRecognitions();
+        $countUserRecognitions = count($userRecognitions);
+
+        $em = $this->getDoctrine()->getManager();
+        $allRecognitions = $em->getRepository('DitttoRecognitionBundle:Recognition')->findAll();
+        // total number of recognitions
+        $countAllRecognitions = count($allRecognitions);
+
+        $userVsTotal = array(
+            'countUserRecognitions' => $countUserRecognitions,
+            'countAllRecognitions' => $countAllRecognitions,
+            );
+
+        return $this->render('DitttoRecognitionBundle:Default:dashboard.html.twig',
+            array('userVsTotal' => json_encode($userVsTotal))
+        );
     }
 
     /**
