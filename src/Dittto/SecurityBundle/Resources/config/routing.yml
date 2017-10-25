@@ -1,3 +1,7 @@
+dittto_security_home:
+    path:     /
+    defaults: { _controller: DitttoSecurityBundle:Security:index }
+
 dittto_security_login:
     path:     /login
     defaults: { _controller: DitttoSecurityBundle:Security:login }

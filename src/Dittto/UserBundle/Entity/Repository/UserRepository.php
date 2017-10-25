@@ -7,6 +7,10 @@ use Doctrine\ORM\EntityRepository;
 
 class UserRepository extends EntityRepository implements UserLoaderInterface
 {
+    /**
+     * @param string $username
+     * @return mixed
+     */
     public function loadUserByUsername($username)
     {
         return $this->createQueryBuilder('u')
@@ -15,5 +19,23 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
             ->setParameter('isActive', true)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    /**
+     * @param $roles
+     * @return array
+     */
+    public function getUserByRoles($roles)
+    {
+        $implodedRoles = implode(',', $roles);
+
+        $users = $this->createQueryBuilder('u')
+            ->select('u')
+            ->Where('u.roles IN (:roles)')
+            ->setParameter('roles', $implodedRoles)
+        ->getQuery()
+        ->getResult();
+
+        return $users;
     }
 }
