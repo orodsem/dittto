@@ -22,7 +22,7 @@ class SchoolClass
     protected $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Dittto\UserBundle\Entity\UserHasSchoolClasses", mappedBy="schoolClasses",cascade={"persist","remove"} )
+     * @ORM\OneToMany(targetEntity="\Dittto\UserBundle\Entity\UserSchoolClasses", mappedBy="schoolClasses",cascade={"persist","remove"} )
      */
     protected $users;
 

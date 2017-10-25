@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 * @ORM\Entity
 * @ORM\Table(name="dittto_user_school_class")
 */
-class UserHasSchoolClasses
+class UserSchoolClasses
 {
     /**
      * @ORM\Id

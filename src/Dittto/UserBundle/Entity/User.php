@@ -44,7 +44,7 @@ class User extends BaseUser
     protected $recognitions;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserHasSchoolClasses", mappedBy="users",cascade={"persist","remove"} )
+     * @ORM\OneToMany(targetEntity="UserSchoolClasses", mappedBy="users",cascade={"persist","remove"} )
      */
     protected $schoolClasses;
 
