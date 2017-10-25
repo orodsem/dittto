@@ -13,6 +13,14 @@ use Symfony\Component\Security\Core\Security;
 
 class SecurityController extends BaseController
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function indexAction()
+    {
+        return $this->redirectToRoute('dittto_recognition_dashboard');
+    }
+
     public function loginAction(Request $request)
     {
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */

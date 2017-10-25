@@ -14,7 +14,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Role
 {
+    const ROLE_SUPER_ADMIN = "ROLE_SUPER_ADMIN";
     const ROLE_ADMIN = "ROLE_ADMIN";
+    const ROLE_TEACHER = "ROLE_TEACHER";
+    const ROLE_STUDENT = "ROLE_STUDENT";
     const ROLE_USER = "ROLE_USER";
 
     /**

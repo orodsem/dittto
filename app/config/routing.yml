@@ -1,3 +1,7 @@
+dittto_school:
+    resource: "@DitttoSchoolBundle/Resources/config/routing.yml"
+    prefix:   /
+
 dittto_recognition:
     resource: "@DitttoRecognitionBundle/Resources/config/routing.yml"
     prefix:   /

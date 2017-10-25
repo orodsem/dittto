@@ -1,0 +1,3 @@
+#dittto_school_homepage:
+#    path:     /
+#    defaults: { _controller: DitttoSchoolBundle:Default:index }

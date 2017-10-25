@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Dittto\UserBundle\DitttoUserBundle(),
             new Dittto\SecurityBundle\DitttoSecurityBundle(),
             new Dittto\RecognitionBundle\DitttoRecognitionBundle(),
+            new Dittto\SchoolBundle\DitttoSchoolBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

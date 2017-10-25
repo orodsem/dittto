@@ -9,6 +9,9 @@
             {{ app.environment }}
         {% endif %}
 
+        {# This is the main css file that will affect all clients and used all over the application#}
+        <link rel="stylesheet" href="{{ asset( 'assets/css/dittto.css') }}" />
+
         {# TODO: css file and other related file related to each client dynamically generate here #}
 
         <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" />
@@ -51,11 +54,15 @@
             {% block body %}{% endblock %}
 
         </div>
-
+        
+        <!-- Bower Components -->
         <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
         <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('bower_components/select2/dist/js/select2.min.js') }}"></script>
         <script src="{{ asset('bower_components/tether/dist/js/tether.min.js') }}"></script>
+
+        <!-- Google Charts -->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
         {% block javascripts %}{% endblock %}
     </body>

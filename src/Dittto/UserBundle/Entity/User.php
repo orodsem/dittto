@@ -11,7 +11,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="Dittto\UserBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="Dittto\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="dittto_user")
  */
 class User extends BaseUser
@@ -43,9 +43,15 @@ class User extends BaseUser
      */
     protected $recognitions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UserSchoolClasses", mappedBy="users",cascade={"persist","remove"} )
+     */
+    protected $schoolClasses;
+
     public function __construct()
     {
         $this->recognitions = new ArrayCollection();
+        $this->schoolClasses = new ArrayCollection();
         parent::__construct();
     }
 
@@ -65,6 +71,13 @@ class User extends BaseUser
         $this->isDeleted = $isDeleted;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getRecognitions()
+    {
+        return $this->recognitions;
+    }
     /**
      * @param mixed $recognitions
      */
@@ -111,5 +124,14 @@ class User extends BaseUser
     public function getFullname()
     {
         return $this->firstname . ' ' . $this->lastname;
+    }
+
+    /**
+     * returns a list of classes that user enrolled to/taught to
+     * @return mixed
+     */
+    public function getSchoolClasses()
+    {
+        return $this->schoolClasses;
     }
 }

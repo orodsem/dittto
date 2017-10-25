@@ -7,6 +7,7 @@
             "AppBundle\\": "src/AppBundle",
             "Dittto\\SecurityBundle\\": "src/Dittto/SecurityBundle",
             "Dittto\\RecognitionBundle\\": "src/Dittto/RecognitionBundle",
+            "Dittto\\SchoolBundle\\": "src/Dittto/SchoolBundle",
             "Dittto\\UserBundle\\": "src/Dittto/UserBundle"
         },
         "classmap": [
