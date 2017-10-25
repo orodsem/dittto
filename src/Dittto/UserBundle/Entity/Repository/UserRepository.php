@@ -22,17 +22,15 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
     }
 
     /**
-     * @param $roles
+     * @param $role
      * @return array
      */
-    public function getUserByRoles($roles)
+    public function getUsersByRole($role)
     {
-        $implodedRoles = implode(',', $roles);
-
         $users = $this->createQueryBuilder('u')
             ->select('u')
-            ->Where('u.roles IN (:roles)')
-            ->setParameter('roles', $implodedRoles)
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%"'.$role.'"%')
         ->getQuery()
         ->getResult();
 
