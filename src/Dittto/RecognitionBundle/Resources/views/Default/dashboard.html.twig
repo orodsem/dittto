@@ -3,8 +3,11 @@
 {% block body %}
     <h1>Dashboard</h1>
 
-    <div id="piechart-received"></div>
-    <div id="piechart-sent"></div>
+    <div class="row">
+        <div id="piechart-received" class="col-xs-6"></div>
+        <div id="piechart-sent" class="col-xs-6"></div>
+    </div>
+
     <input type="hidden" id="user-vs-total-received" value="{{ userVsTotal }}">
 
 {% endblock %}
@@ -45,7 +48,7 @@
                         0: { color: 'orange' },
                         1: { color: 'purple' }
                     },
-                    'width':400,
+                    'width':300,
                     'height':300
                 };
 
@@ -56,7 +59,7 @@
                         0: { color: 'orange' },
                         1: { color: 'purple' }
                     },
-                    'width':400,
+                    'width':300,
                     'height':300
                 };
 
