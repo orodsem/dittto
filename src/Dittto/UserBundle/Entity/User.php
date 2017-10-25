@@ -43,9 +43,15 @@ class User extends BaseUser
      */
     protected $recognitions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="UserHasSchoolClasses", mappedBy="users",cascade={"persist","remove"} )
+     */
+    protected $schoolClasses;
+
     public function __construct()
     {
         $this->recognitions = new ArrayCollection();
+        $this->schoolClasses = new ArrayCollection();
         parent::__construct();
     }
 
@@ -118,5 +124,14 @@ class User extends BaseUser
     public function getFullname()
     {
         return $this->firstname . ' ' . $this->lastname;
+    }
+
+    /**
+     * returns a list of classes that user enrolled to/taught to
+     * @return mixed
+     */
+    public function getSchoolClasses()
+    {
+        return $this->schoolClasses;
     }
 }
