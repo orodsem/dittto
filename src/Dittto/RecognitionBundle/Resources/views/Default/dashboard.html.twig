@@ -3,8 +3,9 @@
 {% block body %}
     <h1>Dashboard</h1>
 
-    <div id="piechart"></div>
-    <input type="hidden" id="user-vs-total" value="{{ userVsTotal }}">
+    <div id="piechart-received"></div>
+    <div id="piechart-sent"></div>
+    <input type="hidden" id="user-vs-total-received" value="{{ userVsTotal }}">
 
 {% endblock %}
 
@@ -17,20 +18,30 @@
 
             // Draw the chart and set the chart values
             function drawChart() {
-                var userVsTotal = $('#user-vs-total').val();
+                var userVsTotal = $('#user-vs-total-received').val();
                 var userVsTotalObj = JSON.parse(userVsTotal);
 
-                var data = google.visualization.arrayToDataTable([
-                    ['Task', 'Hours per Day'],
-                    ['You', userVsTotalObj.countUserRecognitions],
-                    ['School', userVsTotalObj.countAllRecognitions]
+                var totalReceivedByUser = userVsTotalObj.totalReceivedByUser;
+                var totalSentByUser = userVsTotalObj.totalSentByUser;
+                var totalRecognition = userVsTotalObj.totalRecognitions;
+
+                var dataReceived = google.visualization.arrayToDataTable([
+                    ['User', 'number of recognition received'],
+                    ['You', totalReceivedByUser],
+                    ['School', totalRecognition]
+                ]);
+
+                var dataSent = google.visualization.arrayToDataTable([
+                    ['User', 'number of recognition sent'],
+                    ['You', totalSentByUser],
+                    ['School', totalRecognition]
                 ]);
 
                 // Optional; add a title and set the width and height of the chart
-                var options = {
+                var optionsReceived = {
                     'title':'{{ app.user.firstName }} ~ all school [received]',
-                    'pieSliceText': 'value', // if remove it, displays % instead of value
-                    'slices': {
+                    'pieSliceText': 'value',    // if remove it, displays % instead of value
+                    'slices': {                 // TODO: this should be dynamically generated from DB
                         0: { color: 'orange' },
                         1: { color: 'purple' }
                     },
@@ -38,9 +49,23 @@
                     'height':300
                 };
 
-                // Display the chart inside the <div> element with id="piechart"
-                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-                chart.draw(data, options);
+                var optionsSent = {
+                    'title':'{{ app.user.firstName }} ~ all school [sent]',
+                    'pieSliceText': 'value',    // if remove it, displays % instead of value
+                    'slices': {                 // TODO: this should be dynamically generated from DB
+                        0: { color: 'orange' },
+                        1: { color: 'purple' }
+                    },
+                    'width':400,
+                    'height':300
+                };
+
+                // Display the chart including received recognitions by user
+                var chartReceived = new google.visualization.PieChart(document.getElementById('piechart-received'));
+                chartReceived.draw(dataReceived, optionsReceived);
+                // Display the chart including sent recognitions by user
+                var chartSent = new google.visualization.PieChart(document.getElementById('piechart-sent'));
+                chartSent.draw(dataSent, optionsSent);
             }
         });
     </script>

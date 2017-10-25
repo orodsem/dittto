@@ -11,7 +11,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="Dittto\UserBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="Dittto\UserBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="dittto_user")
  */
 class User extends BaseUser

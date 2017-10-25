@@ -1,6 +1,6 @@
 <?php
 
-namespace Dittto\UserBundle\Repository;
+namespace Dittto\UserBundle\Entity\Repository;
 
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Doctrine\ORM\EntityRepository;

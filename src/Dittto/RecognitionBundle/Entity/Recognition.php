@@ -42,11 +42,16 @@ class Recognition
      */
     protected $receivers;
 
+    /**
+     * @ORM\Column(name="sent_at", type="datetime")
+     */
+    protected $sentAt;
 
     public function __construct()
     {
         $this->criteria = new ArrayCollection();
         $this->receivers = new ArrayCollection();
+        $this->sentAt = new \DateTime();
     }
 
     /**
@@ -113,4 +118,12 @@ class Recognition
         $this->receivers = $receivers;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSentAt()
+    {
+        $sentAt = date('d/m/Y', $this->sentAt);
+        return $sentAt;
+    }
 }
