@@ -43,6 +43,13 @@ class Recognition
     protected $receivers;
 
     /**
+     * Each recognition can have multiple recognition received objects
+     *
+     * @ORM\OneToMany(targetEntity="RecognitionReceived", mappedBy="recogniiton", cascade={"persist", "remove"})
+     */
+    private $recognitionReceiveds;
+
+    /**
      * @ORM\Column(name="sent_at", type="datetime")
      */
     protected $sentAt;
@@ -51,6 +58,7 @@ class Recognition
     {
         $this->criteria = new ArrayCollection();
         $this->receivers = new ArrayCollection();
+        $this->recognitionReceiveds = new ArrayCollection();
         $this->sentAt = new \DateTime();
     }
 
@@ -125,5 +133,29 @@ class Recognition
     {
         $sentAt = date('d/m/Y', $this->sentAt);
         return $sentAt;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getRecognitionReceiveds()
+    {
+        return $this->recognitionReceiveds;
+    }
+
+    public function addrecognitionReceived(RecognitionReceived $recognitionReceived)
+    {
+        $this->recognitionReceiveds->add($recognitionReceived);
+        $recognitionReceived->setRecognition($this);
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $recognitionReceiveds
+     */
+    public function setRecognitionReceiveds($recognitionReceiveds)
+    {
+        $this->recognitionReceiveds = $recognitionReceiveds;
     }
 }
