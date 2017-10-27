@@ -7,7 +7,9 @@
     {% if notRepliedRecognitionDetails is not empty %}
         {# comment icon that show number of recognition that haven't been replied back #}
         <a href="#" data-toggle="modal" data-target="#myModal">
-            <span><i class=" fa fa-comment fa-1x dashboard-message-icon" aria-hidden="true"><sup>{{ notRepliedRecognitionDetails|length }}</sup></i></span>
+            <span class="glyphicon glyphicon-envelope">
+                <sup>{{ notRepliedRecognitionDetails|length }}</sup>
+            </span>
         </a>
 
         {# modal to display nrecognitions that not replied back yet #}
