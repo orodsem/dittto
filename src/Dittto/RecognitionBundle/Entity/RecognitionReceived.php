@@ -35,9 +35,9 @@ class RecognitionReceived
     private $recognition;
 
     /**
-     * @ORM\OneToOne(targetEntity="\Dittto\UserBundle\Entity\User",cascade={"persist"})
-     * @ORM\JoinColumn(name="receiver_id", referencedColumnName="id", nullable=true)
-     **/
+     * @ORM\ManyToOne(targetEntity="\Dittto\UserBundle\Entity\User", cascade={"persist"})
+     * @ORM\JoinColumn(name="receiver_id", referencedColumnName="id", nullable=false)
+     */
     private $receiver;
 
     /**
@@ -106,8 +106,7 @@ class RecognitionReceived
      */
     public function getReceivedAt()
     {
-        $receivedAt = date('d/m/Y', $this->receivedAt);
-        return $receivedAt;
+        return $this->receivedAt->format('d/m/Y');
     }
 
     /**
@@ -115,8 +114,7 @@ class RecognitionReceived
      */
     public function getRepliedAt()
     {
-        $repliedAt = date('d/m/Y', $this->repliedAt);
-        return $repliedAt;
+        return $this->repliedAt->format('d/m/Y');
     }
 
     /**

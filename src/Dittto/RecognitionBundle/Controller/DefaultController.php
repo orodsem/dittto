@@ -2,6 +2,7 @@
 
 namespace Dittto\RecognitionBundle\Controller;
 
+use Dittto\RecognitionBundle\Entity\Criteria;
 use Dittto\RecognitionBundle\Entity\Recognition;
 use Dittto\RecognitionBundle\Entity\RecognitionReceived;
 use Dittto\RecognitionBundle\Entity\Repository\RecognitionReceivedRepository;
@@ -35,10 +36,17 @@ class DefaultController extends Controller
         // total number of recognitions "received" to cover 1 to M
         $totalRecognitions = count($recognitionReceivedRepo->findAll());
 
+        // list of recognition received but not replied yet
+        $notRepliedRecognitions = $recognitionReceivedRepo->getNotRepliedRecognitionsByUserId($user->getId());
+
+        // generate a list of message to be displayed to users and informed them about recognitions that they need to reply back
+        $notRepliedRecognitionDetails = $this->generateReplayToMessage($notRepliedRecognitions);
+
         /** @var RecognitionRepository $recognitionRepo */
         $recognitionRepo = $em->getRepository('DitttoRecognitionBundle:Recognition');
         $totalSentByUser = $recognitionRepo->getTotalRecognitionSentByUserId($user->getId());
 
+        // displayed in charts
         $userVsTotal = array(
             'totalSentByUser' => $totalSentByUser,
             'totalReceivedByUser' => $totalReceivedByUser,
@@ -46,7 +54,10 @@ class DefaultController extends Controller
             );
 
         return $this->render('DitttoRecognitionBundle:Default:dashboard.html.twig',
-            array('userVsTotal' => json_encode($userVsTotal))
+            array(
+                'userVsTotal' => json_encode($userVsTotal),
+                'notRepliedRecognitionDetails' => $notRepliedRecognitionDetails
+                )
         );
     }
 
@@ -79,5 +90,28 @@ class DefaultController extends Controller
         return $this->render('DitttoRecognitionBundle:Default:recogniseUser.html.twig',
             array('form' => $form->createView())
         );
+    }
+
+    /**
+     * TODO: This should be done as a twig extension
+     *
+     * @param $notRepliedRecognitions
+     * @return array
+     */
+    public function generateReplayToMessage($notRepliedRecognitions)
+    {
+        $notRepliedRecognitionDetails = array();
+        /** @var RecognitionReceived $notRepliedRecognition */
+        foreach ($notRepliedRecognitions as $notRepliedRecognition) {
+            /** @var Recognition $recognition */
+            $recognition = $notRepliedRecognition->getRecognition();
+            $sender = $recognition->getSender();
+            $listCriteria = $recognition->getCriteria();
+            /** @var Criteria $criteria */
+            foreach ($listCriteria as $criteria) {
+                $notRepliedRecognitionDetails[] = '"' . $sender->getFullname() . '" sent you "' . $criteria->getTitle() . '" At ' . $notRepliedRecognition->getReceivedAt();
+            }
+        }
+        return $notRepliedRecognitionDetails;
     }
 }

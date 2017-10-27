@@ -3,6 +3,27 @@
 {% block body %}
     <h1>Dashboard</h1>
 
+    <span> Hi {{ app.user.firstname }} </span>
+    {% if notRepliedRecognitionDetails is not empty %}
+        <a href="#" data-toggle="modal" data-target="#myModal">
+            <span><i class=" fa fa-comment fa-1x dashboard-message-icon" aria-hidden="true"><sup>{{ notRepliedRecognitionDetails|length }}</sup></i></span>
+        </a>
+
+        {# modal to display nrecognitions that not replied back yet #}
+        <div id="myModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <ul>
+                        {% for notRepliedRecognitionDetail in notRepliedRecognitionDetails %}
+                            <li>{{ notRepliedRecognitionDetail }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
     <div class="row">
         <div id="piechart-received" class="col-xs-6"></div>
         <div id="piechart-sent" class="col-xs-6"></div>
