@@ -1,0 +1,23 @@
+{
+  "name": "dittto",
+  "homepage": "https://github.com/orodsem/dittto",
+  "authors": [
+    "unspecified"
+  ],
+  "description": "a Symfony project",
+  "main": "",
+  "license": "proprietary",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "select2": "^4.0.4",
+    "tether": "^1.4.0"
+  }
+}

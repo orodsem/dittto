@@ -1,5 +1,6 @@
 /.web-server-pid
 /app/config/parameters.yml
+/app/bootstrap.php.cache
 /build/
 /phpunit.xml
 /var/*
@@ -14,5 +15,6 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /vendor/
+/web/bower_components/*
 /web/bundles/
 .idea9
