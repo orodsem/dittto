@@ -5,3 +5,8 @@ dittto_recognition_dashboard:
 dittto_recognition_recognise_user:
     path:     /recognise
     defaults: { _controller: DitttoRecognitionBundle:Default:recognise }
+
+dittto_recognition_recognise_back_user:
+    path:     /recognise-back
+    defaults: { _controller: DitttoRecognitionBundle:Default:recogniseBack }
+

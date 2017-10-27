@@ -92,13 +92,20 @@ class DefaultController extends Controller
         );
     }
 
+    public function recogniseBackAction(Request $request)
+    {
+
+
+        return $this->redirectToRoute('dittto_recognition_dashboard');
+    }
+
     /**
      * TODO: This should be done as a twig extension
      *
      * @param $notRepliedRecognitions
      * @return array
      */
-    public function generateReplayToMessage($notRepliedRecognitions)
+    private function generateReplayToMessage($notRepliedRecognitions)
     {
         $notRepliedRecognitionDetails = array();
         /** @var RecognitionReceived $notRepliedRecognition */
@@ -109,7 +116,12 @@ class DefaultController extends Controller
             $listCriteria = $recognition->getCriteria();
             /** @var Criteria $criteria */
             foreach ($listCriteria as $criteria) {
-                $notRepliedRecognitionDetails[] = '"' . $sender->getFullname() . '" sent you "' . $criteria->getTitle() . '" At ' . $notRepliedRecognition->getReceivedAt();
+                $notRepliedRecognitionDetails[] = '"'
+                    . $sender->getFullname()
+                    . '" sent you "' . $criteria->getTitle()
+                    . '" At '
+                    . $notRepliedRecognition->getReceivedAt()
+                ;
             }
         }
         return $notRepliedRecognitionDetails;
