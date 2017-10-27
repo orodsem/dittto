@@ -6,24 +6,34 @@
     <span> Hi {{ app.user.firstname }} </span>
     {% if notRepliedRecognitionDetails is not empty %}
         {# comment icon that show number of recognition that haven't been replied back #}
-        <a href="#" data-toggle="modal" data-target="#myModal">
+        <a href="#" data-toggle="modal" data-target="#replyBackModal">
             <span class="glyphicon glyphicon-envelope">
                 <sup>{{ notRepliedRecognitionDetails|length }}</sup>
             </span>
         </a>
 
-        {# modal to display nrecognitions that not replied back yet #}
-        <div id="myModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-            <div class="modal-dialog modal-sm">
+        <!-- modal to display nrecognitions that not replied back yet -->
+        <div class="modal fade" id="replyBackModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
                 <div class="modal-content">
-                    <ul>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
                         {% for notRepliedRecognitionDetail in notRepliedRecognitionDetails %}
-                            <a onclick="replyBack();"><li>{{ notRepliedRecognitionDetail }}</li></a>
+                            <div class="recognition-modal-content">
+                                {{ notRepliedRecognitionDetail }}
+                                <a onclick="replyBack();"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                            </div>
                         {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
     {% endif %}
 
 
