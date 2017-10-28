@@ -51,6 +51,7 @@ class SecurityController extends BaseController
             : null;
 
         return $this->renderLogin(array(
+            'is_nav_hidden'  => true,
             'last_username' => $lastUsername,
             'error' => $error,
             'csrf_token' => $csrfToken,
