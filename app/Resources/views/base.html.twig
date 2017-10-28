@@ -9,24 +9,36 @@
             {{ app.environment }}
         {% endif %}
 
-        {# This is the main css file that will affect all clients and used all over the application#}
-        <link rel="stylesheet" href="{{ asset( 'assets/css/dittto.css') }}" />
-
-        {# TODO: css file and other related file related to each client dynamically generate here #}
-
         <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('bower_components/tether/dist/css/tether.min.css') }}" />
+
+        {# Temporary Web fonts #}
+        <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Oswald:300,400,500,600|Pacifico" rel="stylesheet">
+
+        {# This is the main css file that will affect all clients and used all over the application#}
+        <link rel="stylesheet" href="{{ asset( 'assets/css/dittto.css') }}" />
+        
+        {# TODO: css file and other related file related to each client dynamically generate here #}
         <link rel="stylesheet" href="{{ asset( app.environment  ~ '/css/style.css') }}" />
 
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {# This is our menu that displayed to Authed users #}        
+        {# This is our menu that displayed to Authed users #}
+        
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
+        </div>
+
         <div class="container main-wrapper">
             
-            {% if is_nav_hidden == false %}
+            {% if (is_nav_hidden is not defined) or (is_nav_hidden == false) %}
             <nav class="navbar navbar-inverse navbar-fixed-top">
                 <div class="container">
                     <div class="navbar-header">

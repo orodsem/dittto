@@ -1,0 +1,52 @@
+body{
+	background: #fff;
+	color:#7f8c8d;
+	font-family: 'Oswald', sans-serif;
+}
+
+.main-wrapper{
+	padding:0;
+}
+
+.login-page{
+  margin-top: 15%;
+}
+
+.dittto-logo{
+	text-align: center;
+	font-family: 'Pacifico', cursive;
+	/*font-family: 'Abril Fatface', cursive;*/
+	/*font-family: 'Fascinate Inline', cursive;*/ /* - Removed from import */
+	font-size: 3em;
+	color:#e74c3c;
+	margin-bottom: 30px;
+}
+
+.login-form-wrapper{
+	width: 500px;
+	max-width: 100%;
+	margin: 0px auto;
+	padding: 10px 15px;
+}
+
+.login-form-wrapper input{
+	margin-bottom: 12px;
+}
+
+.login-form-wrapper .login-submit-btn{
+	border-radius: 0;
+	padding: 15px;
+	font-size: 21px;
+}
+
+.reg-and-terms-section{
+	text-align: center;
+}
+
+.reg-and-terms-section a{
+	text-align: center;
+	color:#e74c3c;
+}
+
+
+

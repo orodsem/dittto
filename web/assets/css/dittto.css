@@ -1,5 +1,7 @@
 /* All styling which should affect the whole application should be here */
-
+html, body{
+	height:100%;
+}
 
 .fa-comment sup {
     color: #fff;

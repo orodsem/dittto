@@ -1,36 +1,52 @@
 {% extends 'base.html.twig' %}
 {% trans_default_domain 'FOSUserBundle' %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset( 'assets/css/dittto-login.css') }}" />
+{% endblock %}
+
 {% block body %}
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
     
-
     <div class="container login-page">
+        
+        <div class="dittto-logo-container">
+            {# Dittto Logo #}
+            <h2 class="dittto-logo">Dittto</h2>
+        </div>
 
-        <form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
-            <h2 class="form-signin-heading">Please sign in</h2>
+        <div class="login-form-wrapper">
 
-            {% if csrf_token %}
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-            {% endif %}
+            <form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
+                <h2 class="form-signin-heading">Please sign in</h2>
 
-            <label for="username" class="sr-only">{{ 'security.login.username'|trans }}</label>
-            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                {% if csrf_token %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                {% endif %}
 
-            <label for="password" class="sr-only">{{ 'security.login.password'|trans }}</label>
-            <input class="form-control" type="password" id="password" name="_password" required="required" />
-            
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                {{ 'security.login.remember_me'|trans }}
-              </label>
+                <label for="username" class="sr-only">{{ 'security.login.username'|trans }}</label>
+                <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+
+                <label for="password" class="sr-only">{{ 'security.login.password'|trans }}</label>
+                <input class="form-control" type="password" id="password" name="_password" required="required" />
+                
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                    {{ 'security.login.remember_me'|trans }}
+                  </label>
+                </div>
+
+                <input type="submit" id="_submit" name="_submit" class="btn btn-lg btn-primary btn-block login-submit-btn" value="{{ 'security.login.submit'|trans }}" />
+            </form>
+
+            <div class="reg-and-terms-section">
+                <p>Dont have an account yet? <a href="">SIGN UP</a></p>
             </div>
 
-            <input type="submit" id="_submit" name="_submit" class="btn btn-lg btn-primary btn-block" value="{{ 'security.login.submit'|trans }}" />
-        </form>
+        </div>
 
     </div>
 
