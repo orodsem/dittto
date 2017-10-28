@@ -1,10 +1,119 @@
 /* All styling which should affect the whole application should be here */
 html, body{
 	height:100%;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.dev-label-info{
+	position: fixed;
+	top: 55px;
+  right: 5px;
+  z-index: 2000;
+  padding: 5px 10px;
+  color: #fff;
+}
+
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0;
+    left: 0;
+    background-color: #111; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    font-family: 'Oswald', sans-serif;
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+.main-wrapper {
+  transition: margin-left .5s;
+  padding: 0;
+  font-family: 'Oswald', sans-serif;
+}
+
+.main-navbar{
+	-webkit-border-radius: 0;
+	border-radius: 0;
+}
+
+.navbar-brand a{
+	font-family: 'Pacifico', cursive;
+	color:#e74c3c;
+	font-size: 21px;
+}
+
+.main-content{
+	padding:10px 20px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.open-sidebar-btn{
+	margin-right: 12px;
+	color:#fff;
 }
 
 .fa-comment sup {
-    color: #fff;
-    left: -0.9em;
-    top: -0.1em;
+  color: #fff;
+  left: -0.9em;
+  top: -0.1em;
 }
+
+
+/* Page styles */
+
+.page-header-1 {
+	font-family: 'Oswald', sans-serif;
+	font-size: 2em;
+	margin-bottom: 20px;
+}
+
+
+#piechart-received > div > div, #piechart-sent > div > div{
+	margin: 0 auto;
+}
+
+
+
+
+/* Media Queries */
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+
+
+
+
+
+

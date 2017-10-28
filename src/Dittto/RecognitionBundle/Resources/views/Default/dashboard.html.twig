@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Dashboard</h1>
+    <h1 class="page-header-1">Dashboard</h1>
 
     <span> Hi {{ app.user.firstname }} </span>
     {% if notRepliedRecognitionDetails is not empty %}
@@ -25,11 +25,12 @@
             </div>
         </div>
     {% endif %}
-
-
-    <div class="row">
-        <div id="piechart-received" class="col-xs-6"></div>
-        <div id="piechart-sent" class="col-xs-6"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div id="piechart-received" class="col-md-6 col-sm-6 col-xs-12"></div>
+            <div id="piechart-sent" class="col-md-6 col-sm-6 col-xs-12"></div>
+        </div>
     </div>
 
     <input type="hidden" id="user-vs-total-received" value="{{ userVsTotal }}">
