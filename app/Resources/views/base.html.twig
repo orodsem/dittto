@@ -30,13 +30,17 @@
         
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn close-sidebar-btn">&times;</a>
-            <a href="#"><span class="glyphicon glyphicon-dashboard open-sidebar-btn"></span> Dashboard</a>
-            <a href="#"><span class="glyphicon glyphicon-user open-sidebar-btn"></span> My Profile</a>
+            <a href="/dashboard"><span class="glyphicon glyphicon-dashboard open-sidebar-btn"></span> Dashboard</a>
+            <a href="/recognise"><span class="glyphicon glyphicon-thumbs-up open-sidebar-btn"></span> Recognise</a>
+            <a href="/user/profile"><span class="glyphicon glyphicon-user open-sidebar-btn"></span> My Profile</a>
             <a href="#"><span class="glyphicon glyphicon-cog open-sidebar-btn"></span> Settings</a>
             <a href="#"><span class="glyphicon glyphicon-th-large open-sidebar-btn"></span> Programs</a>
             <a href="#"><span class="glyphicon glyphicon-list-alt open-sidebar-btn"></span> Reports</a>
             <a href="#"><span class="glyphicon glyphicon-envelope open-sidebar-btn"></span> Emails</a>
             <a href="#"><span class="glyphicon glyphicon-book open-sidebar-btn"></span> Extra</a>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="{{ logout_path(key = null) }}"><span class="glyphicon glyphicon-log-out open-sidebar-btn"></span> Logout</a>
+            {% endif %}
         </div>
 
         <div class="container-fluid main-wrapper">
@@ -51,19 +55,30 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>                        
-                        <div class="navbar-brand">
-                            <span class="glyphicon glyphicon-menu-hamburger open-sidebar-btn"></span>
-                            <a href="">Dittto</a>
+                        <div class="navbar-brand clear-fix">
+                            
+                            <span class="glyphicon glyphicon-menu-hamburger float-left open-sidebar-btn"></span>
+                            
+                            <span class="float-left app-logo">
+                                <a href="/">Dittto</a>
+                            </span>                             
+                            
+                            <a href="/user/profile" class="float-left user-info-top">
+                                <span class="profile-pic">
+                                    <img src="{{ asset( 'assets/img/temp-profile-img.png') }}" alt="">
+                                </span>                                
+                                {{ app.user.firstname }}
+                            </a>
+                            
                         </div>
                     </div>
                     
                     {# This is our menu that displayed to Authed users #}
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <div id="navbar" class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav navbar-right">                        
+                        <ul class="nav navbar-nav navbar-right">
                             <li><a href="{{ path('dittto_recognition_dashboard') }}">Home</a></li>
                             <li><a href="{{ path('dittto_recognition_recognise_user') }}">Recognise</a></li>
-                            <li><a href="{{ logout_path(key = null) }}">Logout</a></li>                            
                         </ul>
                     </div>
                     {% endif %}
