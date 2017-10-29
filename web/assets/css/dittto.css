@@ -21,7 +21,7 @@ html, body{
     z-index: 1; /* Stay on top */
     top: 0;
     left: 0;
-    background-color: #111; /* Black*/
+    background-color: #2c3e50; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -30,30 +30,37 @@ html, body{
 
 /* The navigation menu links */
 .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s
+  padding: 10px 8px 10px 32px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #fff;
+  display: block;
+  transition: 0.3s;
+  /*font-weight: 300;*/
+  text-transform: capitalize;
+  font-family: 'Open Sans', sans-serif;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
+    /*color: #f1f1f1;*/
+    background:#34495e;
 }
 
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  padding-left: 10px;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 .main-wrapper {
+	height: 100%;
+	background:#f3f9ff;
   transition: margin-left .5s;
   padding: 0;
   font-family: 'Oswald', sans-serif;
@@ -62,6 +69,8 @@ html, body{
 .main-navbar{
 	-webkit-border-radius: 0;
 	border-radius: 0;
+	background:#2c3e50;
+	border:0;
 }
 
 .navbar-brand a{
@@ -78,6 +87,10 @@ html, body{
 .open-sidebar-btn{
 	margin-right: 12px;
 	color:#fff;
+}
+
+.open-sidebar-btn:hover{
+	cursor: pointer;
 }
 
 .fa-comment sup {
