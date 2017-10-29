@@ -36,4 +36,19 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
 
         return $users;
     }
+
+    public function findUserByFullName($searchData)
+    {
+        $keyword = isset($searchData['term']) ? $searchData['term'] : '';
+
+        $users = $this->createQueryBuilder('u')
+            ->where('u.firstname LIKE :keyword')
+            ->orWhere('u.lastname LIKE :lastname')
+            ->setParameter('keyword', '%' . $keyword . '%')
+            ->setParameter('lastname', '%' . $keyword . '%')
+            ->getQuery()
+            ->getResult();
+
+        return $users;
+    }
 }

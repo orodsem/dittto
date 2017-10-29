@@ -3,7 +3,6 @@
 namespace Dittto\RecognitionBundle\Form;
 
 
-use Dittto\RecognitionBundle\Entity\Criteria;
 use Dittto\RecognitionBundle\Entity\Recognition;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -37,6 +36,18 @@ class RecognitionType extends AbstractType
                     new NotBlank(array('message' => 'Select receivers!'))
                 )
             ));
+
+        $builder->add('recognitionReceiveds',
+            ChoiceType::class
+        );
+
+        $builder->add('foo', ChoiceType::class, array(
+            'choices'  => array(
+                'Maybe' => null,
+                'Yes' => true,
+                'No' => false,
+            ),
+        ));
 
         $builder->add('save', SubmitType::class, array('label' => 'Dittto'));
 

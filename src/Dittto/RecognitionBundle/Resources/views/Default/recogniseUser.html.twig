@@ -23,6 +23,8 @@
         {% endfor %}
 
         {{ form_widget(form.receivers, { 'attr': {'style': 'width:200px'} }) }}
+        {{ form_widget(form.recognitionReceiveds, { 'attr': {'style': 'width:200px', 'class':'form-control'} }) }}
+
         <div>
             <button type="submit" id="recognition_save" name="recognition[save]" class="btn btn-primary">Dittto</button>
         </div>
@@ -39,6 +41,24 @@
         $('#recognition_receivers').select2({
             placeholder: 'search a champion'
         });
+
+        $('#recognition_recognitionReceiveds').select2({
+            placeholder: 'search a champion111',
+            allowClear: true,
+            minimumInputLength: 2,
+            width: '100%',
+            ajax: {
+                url: '{{ path('dittto_user_search_by_name') }}',
+                dataType: 'json',
+                processResults: function (data) {
+                    return {
+                        results: data.data
+                    };
+                },
+                cache: true
+            }
+        });
+
     });
 </script>
 {% endblock %}

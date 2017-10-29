@@ -54,6 +54,8 @@ class Recognition
      */
     protected $sentAt;
 
+    private $foo;
+
     public function __construct()
     {
         $this->criteria = new ArrayCollection();
@@ -157,5 +159,15 @@ class Recognition
     public function setRecognitionReceiveds($recognitionReceiveds)
     {
         $this->recognitionReceiveds = $recognitionReceiveds;
+    }
+
+    public function getFoo()
+    {
+        return $this->foo;
+    }
+
+    public function setFoo($foo)
+    {
+        $this->foo = $foo;
     }
 }
