@@ -1,3 +1,7 @@
 #dittto_user_homepage:
 #    path:     /
 #    defaults: { _controller: DitttoUserBundle:Default:index }
+
+dittto_user_profile:
+    path: /user/profile
+    defaults: { _controller: DitttoUserBundle:Default:profile }
