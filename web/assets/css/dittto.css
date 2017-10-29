@@ -109,12 +109,6 @@ html, body{
 }
 
 
-#piechart-received > div > div, #piechart-sent > div > div{
-	margin: 0 auto;
-}
-
-
-
 
 /* Media Queries */
 

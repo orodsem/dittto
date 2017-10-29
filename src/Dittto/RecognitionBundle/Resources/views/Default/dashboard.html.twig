@@ -1,9 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset( 'assets/css/dittto-dashboard.css') }}" />
+{% endblock %}
+
 {% block body %}
     <h1 class="page-header-1">Dashboard</h1>
 
-    <span> Hi {{ app.user.firstname }} </span>
+    {# <span> Hi {{ app.user.firstname }} </span> #}
     {% if notRepliedRecognitionDetails is not empty %}
         {# comment icon that show number of recognition that haven't been replied back #}
         <a href="#" data-toggle="modal" data-target="#replyBackModal">
@@ -39,8 +43,14 @@
     
     <div class="container">
         <div class="row">
-            <div id="piechart-received" class="col-md-6 col-sm-6 col-xs-12"></div>
-            <div id="piechart-sent" class="col-md-6 col-sm-6 col-xs-12"></div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <h3 class="chart-header">Recognition Received</h3>
+                <div id="piechart-received"></div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <h3 class="chart-header">Recognition Sent</h3>
+                <div id="piechart-sent"></div>
+            </div>
         </div>
     </div>
 

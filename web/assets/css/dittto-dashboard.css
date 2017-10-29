@@ -1,0 +1,17 @@
+#piechart-received, 
+#piechart-sent{
+	background:#fff;
+	border:1px solid #f1f1f1;
+}
+
+#piechart-received > div > div, #piechart-sent > div > div{
+	margin: 0 auto;	
+}
+
+.chart-header{
+	background: #2980b9;	
+  color: #fff;
+  padding: 12px;  
+  font-weight: 300;
+  border-radius: 7px 7px 0 0;
+}
