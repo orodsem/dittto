@@ -8,6 +8,7 @@ use Dittto\RecognitionBundle\Entity\RecognitionReceived;
 use Dittto\RecognitionBundle\Entity\Repository\RecognitionReceivedRepository;
 use Dittto\RecognitionBundle\Entity\Repository\RecognitionRepository;
 use Dittto\RecognitionBundle\Form\RecognitionType;
+use Dittto\UserBundle\Entity\Repository\UserRepository;
 use Dittto\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -39,7 +40,7 @@ class DefaultController extends Controller
         // list of recognition received but not replied yet
         $notRepliedRecognitions = $recognitionReceivedRepo->getNotRepliedRecognitionsByUserId($user->getId());
 
-        // generate a list of message to be displayed to users and informed them about recognitions that they need to reply back
+        // everything about the replay back, message, sender, criteria
         $notRepliedRecognitionDetails = $this->generateReplayToMessage($notRepliedRecognitions);
 
         /** @var RecognitionRepository $recognitionRepo */
@@ -94,7 +95,30 @@ class DefaultController extends Controller
 
     public function recogniseBackAction(Request $request)
     {
+        $postData = $request->request->all();
 
+        $recognition = new Recognition();
+        $recognition->setSender($this->getUser());
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        /** @var UserRepository $userRepo */
+        $userRepo = $em->getRepository('DitttoUserBundle:User');
+        // this is the user who already sent and now being ditto :-)
+        $receiver = $userRepo->find($postData['senderId']);
+
+        $criteriaRepo = $em->getRepository('DitttoRecognitionBundle:Criteria');
+        // criteria used for ditto :-)
+        $criteria = $criteriaRepo->find($postData['criteriaId']);
+        $recognition->getCriteria()->add($criteria);
+
+        // add received on=bj
+        $recognitionReceived = new RecognitionReceived();
+        $recognitionReceived->setReceiver($receiver);
+        $recognition->addrecognitionReceived($recognitionReceived);
+
+        $em->persist($recognition);
+        $em->flush();
 
         return $this->redirectToRoute('dittto_recognition_dashboard');
     }
@@ -116,14 +140,21 @@ class DefaultController extends Controller
             $listCriteria = $recognition->getCriteria();
             /** @var Criteria $criteria */
             foreach ($listCriteria as $criteria) {
-                $notRepliedRecognitionDetails[] = '"'
-                    . $sender->getFullname()
-                    . '" sent you "' . $criteria->getTitle()
-                    . '" At '
+                $notRepliedRecognitionMessage =
+                    '<b>' . $sender->getFullname() . '</b>'
+                    . ' sent you " <b>' . $criteria->getTitle() . '</b>'
+                    . '" at '
                     . $notRepliedRecognition->getReceivedAt()
                 ;
+
+                $notRepliedRecognitionDetails[] = array(
+                    'criteriaId' => 3, // TODO: at the moment like. This should be fetch from DB
+                    'senderId' => $sender->getId(),
+                    'message' => $notRepliedRecognitionMessage
+                );
             }
         }
+
         return $notRepliedRecognitionDetails;
     }
 }

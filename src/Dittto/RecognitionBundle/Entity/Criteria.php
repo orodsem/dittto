@@ -34,7 +34,7 @@ class Criteria
     private $point;
 
     /**
-     * @ORM\Column(type="string", unique=false)
+     * @ORM\Column(type="string", unique=false, nullable=true)
      */
     private $image;
 

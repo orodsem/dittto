@@ -95,7 +95,7 @@ class Recognition
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getCriteria()
     {
@@ -103,7 +103,7 @@ class Recognition
     }
 
     /**
-     * @param mixed $criteria
+     * @param ArrayCollection $criteria
      */
     public function setCriteria($criteria)
     {
@@ -111,7 +111,7 @@ class Recognition
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getReceivers()
     {
