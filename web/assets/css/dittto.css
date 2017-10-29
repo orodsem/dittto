@@ -4,7 +4,7 @@ html, body{
 	font-family: 'Open Sans', sans-serif;
 }
 
-.dev-label-info{
+.env-label-info{
 	position: fixed;
 	top: 55px;
   right: 5px;

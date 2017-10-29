@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="page-header-1">Profile</h1>
+
+    <form name="recognition" method="post">
+        {% if hasError %}
+            {# displayed if there is any error #}
+            <div class="row alert alert-danger">
+                {{ form_errors(form.firstname) }}
+                {{ form_errors(form.lastname) }}
+                {{ form_errors(form.password.first) }}
+            </div>
+        {% endif %}
+        <div class="row">
+            {{ form_label(form.firstname) }}
+            {{ form_widget(form.firstname) }}
+            {{ form_label(form.lastname) }}
+            {{ form_widget(form.lastname) }}
+        </div>
+        <div class="row">
+            {{ form_label(form.password.first) }}
+            {{ form_widget(form.password.first) }}
+            {{ form_label(form.password.second) }}
+            {{ form_widget(form.password.second) }}
+        </div>
+
+        <div class="row">
+            {{ form_widget(form.save) }}
+        </div>
+        {{ form_widget(form._token) }}
+    </form>
+{% endblock %}

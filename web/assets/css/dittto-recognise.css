@@ -1,0 +1,11 @@
+.recognise-user-page form{
+	max-width: 100%;
+	padding: 10px 20px;
+	background:#fff;
+	margin:0 auto;
+	font-family: "Open Sans", sans-serif;
+}
+
+.recognise-user-page .input-group{
+	margin-bottom:15px;
+}
