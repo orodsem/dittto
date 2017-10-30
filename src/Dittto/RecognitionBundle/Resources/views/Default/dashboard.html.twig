@@ -27,25 +27,6 @@
 {% block javascripts %}
     <script type="text/javascript">
 
-        function replyBack(criteriaId, senderId) {
-            $.ajax({
-                url:'{{ (path('dittto_recognition_recognise_back_user')) }}',
-                type: "POST",
-                dataType: "json",
-                data: {
-                    "criteriaId": criteriaId,
-                    "senderId"  : senderId
-                },
-                async: true,
-                success: function (data)
-                {
-                    console.log(data)
-                    $('div#ajax-results').html(data.output);
-
-                }
-            });
-        }
-
         $(document).ready(function() {
             // Load google charts
             google.charts.load('current', {'packages':['corechart']});

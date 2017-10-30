@@ -191,6 +191,17 @@ a.user-info-top{
 	border-bottom:0;
 }
 
+#replyBackModal .recognition-modal-content .badge.check{	
+	padding:0 7px;
+	background:none;
+	color:#16a085;
+	font-size:16px;
+}
+
+#replyBackModal .recognition-modal-content .badge.reply{	
+	background:#3498db;
+}
+
 /* Page styles */
 
 .page-header-1 {

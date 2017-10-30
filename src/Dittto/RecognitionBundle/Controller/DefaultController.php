@@ -150,7 +150,8 @@ class DefaultController extends Controller
                 $notRepliedRecognitionDetails[] = array(
                     'criteriaId' => 3, // TODO: at the moment like. This should be fetch from DB
                     'senderId' => $sender->getId(),
-                    'message' => $notRepliedRecognitionMessage
+                    'message' => $notRepliedRecognitionMessage,
+                    'hasReplied' => false
                 );
             }
         }

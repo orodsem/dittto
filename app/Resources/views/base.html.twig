@@ -114,10 +114,18 @@
                                 <ul class="list-group">
 
                                 {% for key,notRepliedRecognitionDetail in notRepliedRecognitionDetails %}
-                                <li class="list-group-item">                                            
-                                    <a onclick="replyBack({{ notRepliedRecognitionDetail.criteriaId }}, {{ notRepliedRecognitionDetail.senderId }});" class="badge">
-                                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                                    </a>
+                                <li class="list-group-item">
+                                    
+                                    {% if notRepliedRecognitionDetail.hasReplied %}
+                                        <span class="badge check">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                        </span>                                        
+                                    {% else %}
+                                        <a onclick="replyBack({{ notRepliedRecognitionDetail.criteriaId }}, {{ notRepliedRecognitionDetail.senderId }});" class="badge reply">
+                                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                                        </a>
+                                    {% endif %}
+                                    
                                     {{ notRepliedRecognitionDetail.message|raw }}
                                 </li>                                    
                                 {% endfor %}
@@ -128,9 +136,37 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
+                    </div>
+                </div>
             </div><!-- /.modal -->
+
+            <script>
+                function replyBack(criteriaId, senderId) {
+
+                    // alert('{{ (path('dittto_recognition_recognise_back_user')) }}');
+                    // return;
+
+                    $.ajax({
+                        url:'{{ (path('dittto_recognition_recognise_back_user')) }}',
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            "criteriaId": criteriaId,
+                            "senderId"  : senderId
+                        },
+                        async: true,
+                        success: function (data){
+                            console.log(data, 'RECOG');
+                            $('div#ajax-results').html(data.output);
+
+                        },
+                        error: function (err){
+                            console.log(err, 'error');
+                            $('div#ajax-results').html(err.responseText);
+                        }
+                    });
+                }
+            </script>
             {% endif %}
 
         </div>
