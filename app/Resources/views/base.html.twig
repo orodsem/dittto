@@ -70,7 +70,7 @@
                                 {{ app.user.firstname }}
                             </a>
 
-                            {% if notRepliedRecognitionDetails is not empty %}
+                            {% if (notRepliedRecognitionDetails is defined) and (notRepliedRecognitionDetails is not empty) %}
                             {# comment icon that show number of recognition that haven't been replied back #}
                             <a href="#" id="top-notification-link" data-toggle="modal" data-target="#replyBackModal">
                                 <span class="glyphicon glyphicon-bell">
@@ -99,23 +99,31 @@
             <div class="main-content">
                 {% block body %}{% endblock %}
             </div>
-
+            
+            {% if (notRepliedRecognitionDetails is defined) and (notRepliedRecognitionDetails is not empty) %}
             <!-- modal to display nrecognitions that not replied back yet -->
             <div class="modal fade" id="replyBackModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title">You recently recognised</h4>
+                            <h2 class="modal-title">Your most recent recognitions</h2>
                         </div>
                         <div class="modal-body">
-                            {% for key,notRepliedRecognitionDetail in notRepliedRecognitionDetails %}
-                                <div class="recognition-modal-content">
+                            <div class="recognition-modal-content">
+                                <ul class="list-group">
+
+                                {% for key,notRepliedRecognitionDetail in notRepliedRecognitionDetails %}
+                                <li class="list-group-item">                                            
+                                    <a onclick="replyBack({{ notRepliedRecognitionDetail.criteriaId }}, {{ notRepliedRecognitionDetail.senderId }});" class="badge">
+                                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                                    </a>
                                     {{ notRepliedRecognitionDetail.message|raw }}
-                                    <a onclick="replyBack({{ notRepliedRecognitionDetail.criteriaId }}, {{ notRepliedRecognitionDetail.senderId }});"><span class="glyphicon glyphicon-thumbs-up"></span></a>
-                                    <hr>
-                                </div>
-                            {% endfor %}
+                                </li>                                    
+                                {% endfor %}
+
+                                </ul>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -123,6 +131,7 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
+            {% endif %}
 
         </div>
         

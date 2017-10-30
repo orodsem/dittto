@@ -163,6 +163,33 @@ a.user-info-top{
   top: -0.1em;
 }
 
+#replyBackModal .modal-header{
+	padding: 20px 15px;
+	background: #2980b9;	
+}
+
+#replyBackModal .modal-title{
+	font-size:19px;
+	color:#fff;
+}
+
+#replyBackModal .recognition-modal-content ul{
+	margin-bottom: 10px;	
+}
+
+#replyBackModal .recognition-modal-content ul li{
+	margin-bottom:0;
+	border:0;
+	border-bottom:1px solid #ddd;
+	padding: 15px 5px;
+	font-family: "Open Sans", sans-serif;
+	font-size: 14px;
+	color:#777;
+}
+
+#replyBackModal .recognition-modal-content ul li:last-child{	
+	border-bottom:0;
+}
 
 /* Page styles */
 
