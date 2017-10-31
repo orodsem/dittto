@@ -219,3 +219,50 @@ a.user-info-top{
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
+
+
+/* glyphicon spinning wheel animation [START] */
+.glyphicon-spin {
+	-webkit-animation: spin 1000ms infinite linear;
+	animation: spin 1000ms infinite linear;
+}
+
+@-webkit-keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+@keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+/* glyphicon spinning wheel animation [EMD] */
+
+/* icon colour */
+.icon-success {
+	color: #008000;
+}
+
+.icon-warning {
+	color: #ffff00;
+}
+
+.icon-alert {
+	color: #ff0000;
+}
+
+a {
+	cursor: pointer;
+}

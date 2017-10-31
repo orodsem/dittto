@@ -45,7 +45,7 @@ class Recognition
     /**
      * Each recognition can have multiple recognition received objects
      *
-     * @ORM\OneToMany(targetEntity="RecognitionReceived", mappedBy="recogniiton", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="RecognitionReceived", mappedBy="recognition", cascade={"persist", "remove"})
      */
     private $recognitionReceiveds;
 

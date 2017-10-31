@@ -121,7 +121,7 @@
                                             <span class="glyphicon glyphicon-ok"></span>
                                         </span>                                        
                                     {% else %}
-                                        <a onclick="replyBack({{ notRepliedRecognitionDetail.criteriaId }}, {{ notRepliedRecognitionDetail.senderId }});" class="badge reply">
+                                        <a href="#" data-toggle="modal" data-target="#replyBackModal" class="badge reply">
                                             <span class="glyphicon glyphicon-thumbs-up"></span>
                                         </a>
                                     {% endif %}

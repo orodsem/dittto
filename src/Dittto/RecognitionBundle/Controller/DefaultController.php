@@ -12,6 +12,7 @@ use Dittto\UserBundle\Entity\Repository\UserRepository;
 use Dittto\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
@@ -38,7 +39,7 @@ class DefaultController extends Controller
         $totalRecognitions = count($recognitionReceivedRepo->findAll());
 
         // list of recognition received but not replied yet
-        $notRepliedRecognitions = $recognitionReceivedRepo->getNotRepliedRecognitionsByUserId($user->getId());
+        $notRepliedRecognitions = $recognitionReceivedRepo->getResponseRequiredRecognitionsByUserId($user->getId());
 
         // everything about the replay back, message, sender, criteria
         $notRepliedRecognitionDetails = $this->generateReplayToMessage($notRepliedRecognitions);
@@ -93,34 +94,54 @@ class DefaultController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function recogniseBackAction(Request $request)
     {
         $postData = $request->request->all();
-
-        $recognition = new Recognition();
-        $recognition->setSender($this->getUser());
 
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         /** @var UserRepository $userRepo */
         $userRepo = $em->getRepository('DitttoUserBundle:User');
-        // this is the user who already sent and now being ditto :-)
-        $receiver = $userRepo->find($postData['senderId']);
-
         $criteriaRepo = $em->getRepository('DitttoRecognitionBundle:Criteria');
+        /** @var RecognitionRepository $recognitionRepo */
+        $recognitionRepo = $em->getRepository('DitttoRecognitionBundle:Recognition');
+
+        // this is who we're replying to :-)
+        $repliedTo = $userRepo->find($postData['senderId']);
         // criteria used for ditto :-)
         $criteria = $criteriaRepo->find($postData['criteriaId']);
-        $recognition->getCriteria()->add($criteria);
+        /** @var Recognition $originalRecognition */
+        $originalRecognition = $recognitionRepo->find($postData['recognitionId']);
 
-        // add received on=bj
+        // new recognition
+        $responseRecognition = new Recognition();
+        $responseRecognition->setSender($this->getUser());
+        $responseRecognition->getCriteria()->add($criteria);
+
+        // add recognition response to recognition
         $recognitionReceived = new RecognitionReceived();
-        $recognitionReceived->setReceiver($receiver);
-        $recognition->addrecognitionReceived($recognitionReceived);
+        $recognitionReceived->setReceiver($repliedTo);
+        $recognitionReceived->setResponseType(RecognitionReceived::NOT_REQUIERED);
+        $responseRecognition->addrecognitionReceived($recognitionReceived);
 
-        $em->persist($recognition);
+        $em->persist($responseRecognition);
+
+        // update original recognition
+        $recognitionReceiveds = $originalRecognition->getRecognitionReceiveds();
+        /** @var RecognitionReceived $recognitionReceived */
+        foreach ($recognitionReceiveds as $recognitionReceived) {
+            $recognitionReceived->setResponseType(RecognitionReceived::REPLIED);
+            $em->persist($recognitionReceived);
+        }
         $em->flush();
 
-        return $this->redirectToRoute('dittto_recognition_dashboard');
+        $data = ['success' => true];
+
+        return new JsonResponse($data);
     }
 
     /**
@@ -148,10 +169,11 @@ class DefaultController extends Controller
                 ;
 
                 $notRepliedRecognitionDetails[] = array(
-                    'criteriaId' => 3, // TODO: at the moment like. This should be fetch from DB
+                    'criteriaId' => 3, // TODO: at the moment only like. This should be fetch from DB
                     'senderId' => $sender->getId(),
                     'message' => $notRepliedRecognitionMessage,
-                    'hasReplied' => false
+                    'hasReplied' => false,
+                    'recognitionId' => $recognition->getId()
                 );
             }
         }

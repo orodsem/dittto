@@ -16,7 +16,7 @@ class RecognitionReceived
 {
     const NOT_REPLIED = 0;
     const REPLIED = 1;
-    const NOT_REQUIERED = -1;
+    const NOT_REQUIERED = 2;
 
     /**
      * @ORM\Id
@@ -41,9 +41,9 @@ class RecognitionReceived
     private $receiver;
 
     /**
-     * @ORM\Column(name="has_replied", type="boolean", nullable=true, options={"default" : 0})
+     * @ORM\Column(name="response_type", type="smallint", nullable=false, options={"default" : 0})
      */
-    private $hasReplied;
+    private $responseType;
 
     /**
      * @ORM\Column(name="received_at", type="datetime")
@@ -57,7 +57,7 @@ class RecognitionReceived
 
     public function __construct()
     {
-        $this->hasReplied = self::NOT_REPLIED;
+        $this->responseType = self::NOT_REPLIED;
         $this->receivedAt = new \DateTime();
     }
 
@@ -88,17 +88,21 @@ class RecognitionReceived
     /**
      * @return mixed
      */
-    public function hasReplied()
+    public function getResponseType()
     {
-        return $this->hasReplied;
+        return $this->responseType;
     }
 
     /**
-     * @param mixed $hasReplied
+     * @param mixed $responseType
      */
-    public function setReplied($hasReplied)
+    public function setResponseType($responseType)
     {
-        $this->hasReplied = is_null($hasReplied) ? self::NOT_REPLIED : $hasReplied;
+        $this->responseType = is_null($responseType) ? self::NOT_REPLIED : $responseType;
+
+        if ($this->getResponseType()) {
+            $this->setRepliedAt(new \DateTime());
+        }
     }
 
     /**
