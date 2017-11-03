@@ -23,7 +23,7 @@ class DefaultController extends Controller
      */
     public function dashboardAction(Request $request)
     {
-//        TODO: This should be a sevrice, chartGenerator, get an entity and return diff. reports about that entity!!
+//        TODO: This should be a sevrvice, chartGenerator, get an entity and return diff. reports about that entity!!
         /** @var User $user */
         $user = $this->getUser();
 
@@ -38,11 +38,11 @@ class DefaultController extends Controller
         // total number of recognitions "received" to cover 1 to M
         $totalRecognitions = count($recognitionReceivedRepo->findAll());
 
-        // list of recognition received but not replied yet
-        $notRepliedRecognitions = $recognitionReceivedRepo->getResponseRequiredRecognitionsByUserId($user->getId());
+        // list of new recognition received that not responded yet
+        $newRecognitions = $recognitionReceivedRepo->getNewRecognitionsByUserId($user->getId());
 
         // everything about the replay back, message, sender, criteria
-        $notRepliedRecognitionDetails = $this->generateReplayToMessage($notRepliedRecognitions);
+        $newRecognitionDetails = $this->generateReplayToMessage($newRecognitions);
 
         /** @var RecognitionRepository $recognitionRepo */
         $recognitionRepo = $em->getRepository('DitttoRecognitionBundle:Recognition');
@@ -58,7 +58,7 @@ class DefaultController extends Controller
         return $this->render('DitttoRecognitionBundle:Default:dashboard.html.twig',
             array(
                 'userVsTotal' => json_encode($userVsTotal),
-                'notRepliedRecognitionDetails' => $notRepliedRecognitionDetails
+                'notRepliedRecognitionDetails' => $newRecognitionDetails
                 )
         );
     }
@@ -83,7 +83,7 @@ class DefaultController extends Controller
             foreach ($recognition->getReceivers() as $receiver) {
                 $recognitionReceived = new RecognitionReceived();
                 $recognitionReceived->setReceiver($receiver);
-                $recognition->addrecognitionReceived($recognitionReceived);
+                $recognition->addRecognitionReceived($recognitionReceived);
             }
 
             $em->persist($recognition);
@@ -125,8 +125,8 @@ class DefaultController extends Controller
         // add recognition response to recognition
         $recognitionReceived = new RecognitionReceived();
         $recognitionReceived->setReceiver($repliedTo);
-        $recognitionReceived->setResponseType(RecognitionReceived::NOT_REQUIERED);
-        $responseRecognition->addrecognitionReceived($recognitionReceived);
+        $recognitionReceived->setResponseType(RecognitionReceived::RESPONSE);
+        $responseRecognition->addRecognitionReceived($recognitionReceived);
 
         $em->persist($responseRecognition);
 
@@ -134,7 +134,7 @@ class DefaultController extends Controller
         $recognitionReceiveds = $originalRecognition->getRecognitionReceiveds();
         /** @var RecognitionReceived $recognitionReceived */
         foreach ($recognitionReceiveds as $recognitionReceived) {
-            $recognitionReceived->setResponseType(RecognitionReceived::REPLIED);
+            $recognitionReceived->setResponseType(RecognitionReceived::RESPONDED);
             $em->persist($recognitionReceived);
         }
         $em->flush();
@@ -147,37 +147,55 @@ class DefaultController extends Controller
     /**
      * TODO: This should be done as a twig extension
      *
-     * @param $notRepliedRecognitions
+     * @param RecognitionReceived[] $newRecognitionReceivedList
      * @return array
      */
-    private function generateReplayToMessage($notRepliedRecognitions)
+    private function generateReplayToMessage($newRecognitionReceivedList)
     {
-        $notRepliedRecognitionDetails = array();
-        /** @var RecognitionReceived $notRepliedRecognition */
-        foreach ($notRepliedRecognitions as $notRepliedRecognition) {
+        $newRecognitionDetails = array();
+        /** @var RecognitionReceived $newRecognitionReceived */
+        foreach ($newRecognitionReceivedList as $newRecognitionReceived) {
             /** @var Recognition $recognition */
-            $recognition = $notRepliedRecognition->getRecognition();
+            $recognition = $newRecognitionReceived->getRecognition();
             $sender = $recognition->getSender();
             $listCriteria = $recognition->getCriteria();
             /** @var Criteria $criteria */
             foreach ($listCriteria as $criteria) {
-                $notRepliedRecognitionMessage =
-                    '<b>' . $sender->getFullname() . '</b>'
-                    . ' sent you " <b>' . $criteria->getTitle() . '</b>'
-                    . '" at '
-                    . $notRepliedRecognition->getReceivedAt()
+                $recognitionMessage =
+                    '<span class="strong">' . $sender->getFullname() . '</span>'
+                    . ' sent you <span class="strong">' . $criteria->getTitle() . '</span>'
+                    . ' at '
+                    . $newRecognitionReceived->getHumanTiming($newRecognitionReceived->getReceivedAt())
                 ;
 
-                $notRepliedRecognitionDetails[] = array(
-                    'criteriaId' => 3, // TODO: at the moment only like. This should be fetch from DB
+                if ($newRecognitionReceived->getResponseType() == RecognitionReceived::RESPONDED) {
+                    // if it's responded
+                    $recognitionMessage .= '<br>' . ' You responded at ' . $newRecognitionReceived->getRepliedAt();
+                }
+
+                if ($newRecognitionReceived->getResponseType() == RecognitionReceived::RESPONSE) {
+                    $responseRecognition = $newRecognitionReceived->getRecognition();
+                    $senderName = $responseRecognition->getSender()->getFullname();
+                    $criteriaTitle = $responseRecognition->getSingleCriteria()->getTitleToDisplay();
+                    $responseType = $responseRecognition->getHumanTiming($responseRecognition->getSentAt());
+                    $originalCriteriaTitle = $recognition->getSingleCriteria()->getTitle();
+
+                    $recognitionMessage =
+                        '<span class="strong">'. $senderName . '</span>' . ' ' . $criteriaTitle . ' your <span class="strong">' . $originalCriteriaTitle . '</span> recognition ' . $responseType . ' ago'
+                        ;
+                }
+
+                $newRecognitionDetails[] = array(
+                    'criteriaId' => 3, // TODO: at the moment this is the only like. This should be fetched from DB
                     'senderId' => $sender->getId(),
-                    'message' => $notRepliedRecognitionMessage,
+                    'message' => $recognitionMessage,
                     'hasReplied' => false,
-                    'recognitionId' => $recognition->getId()
+                    'recognitionId' => $recognition->getId(),
+                    'responseType' => $newRecognitionReceived->getResponseType()
                 );
             }
         }
 
-        return $notRepliedRecognitionDetails;
+        return $newRecognitionDetails;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Dittto\RecognitionBundle\Entity;
 
+use AppBundle\Entity\BaseEntity;
 use Dittto\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,11 +13,11 @@ use Symfony\Component\Validator\Constraints\DateTime;
  * @ORM\Table(name="dittto_recognition_received")
  * @ORM\Entity(repositoryClass="Dittto\RecognitionBundle\Entity\Repository\RecognitionReceivedRepository")
 */
-class RecognitionReceived
+class RecognitionReceived extends BaseEntity
 {
-    const NOT_REPLIED = 0;
-    const REPLIED = 1;
-    const NOT_REQUIERED = 2;
+    const NOT_RESPONDED = 0;
+    const RESPONDED = 1;
+    const RESPONSE = 2; // this is a response recognition. e.g. someone recognise you and you like it
 
     /**
      * @ORM\Id
@@ -57,7 +58,7 @@ class RecognitionReceived
 
     public function __construct()
     {
-        $this->responseType = self::NOT_REPLIED;
+        $this->responseType = self::NOT_RESPONDED;
         $this->receivedAt = new \DateTime();
     }
 
@@ -70,7 +71,7 @@ class RecognitionReceived
     }
 
     /**
-     * @return mixed
+     * @return Recognition
      */
     public function getRecognition()
     {
@@ -98,7 +99,7 @@ class RecognitionReceived
      */
     public function setResponseType($responseType)
     {
-        $this->responseType = is_null($responseType) ? self::NOT_REPLIED : $responseType;
+        $this->responseType = is_null($responseType) ? self::NOT_RESPONDED : $responseType;
 
         if ($this->getResponseType()) {
             $this->setRepliedAt(new \DateTime());
@@ -110,7 +111,7 @@ class RecognitionReceived
      */
     public function getReceivedAt()
     {
-        return $this->receivedAt->format('d/m/Y');
+        return $this->receivedAt;
     }
 
     /**
@@ -118,7 +119,7 @@ class RecognitionReceived
      */
     public function getRepliedAt()
     {
-        return $this->repliedAt->format('d/m/Y');
+        return $this->repliedAt;
     }
 
     /**

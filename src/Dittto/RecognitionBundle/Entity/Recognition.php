@@ -2,9 +2,11 @@
 
 namespace Dittto\RecognitionBundle\Entity;
 
+use AppBundle\Entity\BaseEntity;
 use Dittto\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Psr\Log\InvalidArgumentException;
 
 
 /**
@@ -12,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="dittto_recognition")
  * @ORM\Entity(repositoryClass="Dittto\RecognitionBundle\Entity\Repository\RecognitionRepository")
  */
-class Recognition
+class Recognition extends BaseEntity
 {
     /**
      * @ORM\Id
@@ -103,6 +105,22 @@ class Recognition
     }
 
     /**
+     * This returns one criteria. in must cases we ONLY have one criteria per recognition, however for flexibility
+     * the cardinality is M-M
+     *
+     * @return Criteria
+     */
+    public function getSingleCriteria()
+    {
+        $criteria = $this->criteria;
+        if (count($criteria) > 1 || count($criteria) == 0) {
+            throw new InvalidArgumentException('[' . count($criteria) . '] is invalid. It must be one.');
+        }
+
+        return $criteria[0];
+    }
+
+    /**
      * @param ArrayCollection $criteria
      */
     public function setCriteria($criteria)
@@ -131,8 +149,7 @@ class Recognition
      */
     public function getSentAt()
     {
-        $sentAt = date('d/m/Y', $this->sentAt);
-        return $sentAt;
+        return $this->sentAt;
     }
 
     /**
@@ -143,7 +160,7 @@ class Recognition
         return $this->recognitionReceiveds;
     }
 
-    public function addrecognitionReceived(RecognitionReceived $recognitionReceived)
+    public function addRecognitionReceived(RecognitionReceived $recognitionReceived)
     {
         $this->recognitionReceiveds->add($recognitionReceived);
         $recognitionReceived->setRecognition($this);

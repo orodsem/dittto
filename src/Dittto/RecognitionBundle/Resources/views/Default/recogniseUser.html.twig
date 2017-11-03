@@ -1,15 +1,14 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Recognition{% endblock %}
+
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset( 'assets/css/dittto-recognise.css') }}" />
 {% endblock %}
 
 {% block body %}
-    
+    <h1 class="page-header-1">Recognise User</h1>
     <div class="container recognise-user-page">
-
-        <h1 class="page-header-1">Recognise User</h1>
-    
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -22,7 +21,7 @@
                                         name="recognition[criteria][]"
                                         id="recognition_criteria_{{ criteria.data.id }}"/>
 
-                                    <img src="{{ asset(criteria.data.image) }}" style="width: 20px; height: 20px;">
+                                    <img src="{{ asset(criteria.data.image) }}" style="width: 50px; height: 50px;">
                                     {{ criteria.data.title }}
                                 </label>
                             </div>

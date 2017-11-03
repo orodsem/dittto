@@ -1,10 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Dashboard{% endblock %}
+
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset( 'assets/css/dittto-dashboard.css') }}" />
 {% endblock %}
 
 {% block body %}
+
     <h1 class="page-header-1">Dashboard</h1>
 
     {% if notRepliedRecognitionDetails is not empty %}
@@ -20,14 +23,17 @@
                     <div class="modal-body">
                         {% for key,recognition in notRepliedRecognitionDetails %}
                             <div id="recognition-content-{{ recognition.criteriaId }}-{{ key }}"
-                                 class="recognition-modal-content">
+                                 class="recognition-modal-content small">
                                 {{ recognition.message|raw }}
+
+                                {% if recognition.responseType == 0 %}
                                 <a
                                         id="recognition-icon-{{ recognition.criteriaId }}-{{ key }}"
                                         onclick="replyBack({{ recognition.recognitionId }}, {{ recognition.criteriaId }}, {{ recognition.senderId }}, {{ key }});">
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
                                 </a>
-                                {# spinning weel for each reply #}
+                                {% endif %}
+                                {# spinning wheel for each reply #}
                                 <span id="spinning-{{ recognition.criteriaId }}-{{ key }}" class="hide">
                                     <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
                                 </span>

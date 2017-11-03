@@ -29,17 +29,18 @@ class RecognitionReceivedRepository extends EntityRepository
     }
 
     /**
-     * Returns all recognitions that should be responded
+     * Returns all recognitions that not responded yet and should be responded
      *
      * @param $userId
      * @return RecognitionReceived[]
      */
-    public function getResponseRequiredRecognitionsByUserId($userId)
+    public function getNewRecognitionsByUserId($userId)
     {
         $notRepliedByUser = $this->createQueryBuilder('r')
             ->where('r.receiver = :receiver')
-            ->andWhere('r.responseType = :responseType')
-            ->setParameters(array('receiver' => $userId, 'responseType' => RecognitionReceived::NOT_REPLIED))
+            ->andWhere('r.responseType != :responseType')
+            ->setParameters(array('receiver' => $userId, 'responseType' => RecognitionReceived::RESPONDED))
+            ->orderBy('r.id', 'DESC')
             ->getQuery()->getResult();
 
         return $notRepliedByUser;

@@ -250,7 +250,7 @@ a.user-info-top{
 }
 /* glyphicon spinning wheel animation [EMD] */
 
-/* icon colour */
+/* icon colour [Strong] */
 .icon-success {
 	color: #008000;
 }
@@ -266,3 +266,8 @@ a.user-info-top{
 a {
 	cursor: pointer;
 }
+
+.strong {
+	font-weight: bold;
+}
+/* icon colour [End] */

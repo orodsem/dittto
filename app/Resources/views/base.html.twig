@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="{{ asset( app.environment  ~ '/css/style.css') }}" />
 
         {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset(app.environment ~ '/img/favicon.ico') }}" />
     </head>
     <body>
         

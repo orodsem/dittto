@@ -65,6 +65,15 @@ class Criteria
     }
 
     /**
+     * Past tense criteria title
+     * @return string
+     */
+    public function getTitleToDisplay()
+    {
+        return $this->title . 's';
+    }
+
+    /**
      * @param mixed $title
      */
     public function setTitle($title)
