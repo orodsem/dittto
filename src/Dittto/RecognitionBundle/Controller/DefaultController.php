@@ -2,6 +2,7 @@
 
 namespace Dittto\RecognitionBundle\Controller;
 
+use AppBundle\Service\DateTime\Date;
 use Dittto\RecognitionBundle\Entity\Criteria;
 use Dittto\RecognitionBundle\Entity\Recognition;
 use Dittto\RecognitionBundle\Entity\RecognitionReceived;
@@ -23,7 +24,7 @@ class DefaultController extends Controller
      */
     public function dashboardAction(Request $request)
     {
-//        TODO: This should be a sevrvice, chartGenerator, get an entity and return diff. reports about that entity!!
+//        TODO: This should be a service, chartGenerator, get an entity and return diff. reports about that entity!!
         /** @var User $user */
         $user = $this->getUser();
 
@@ -152,6 +153,9 @@ class DefaultController extends Controller
      */
     private function generateReplayToMessage($newRecognitionReceivedList)
     {
+        /** @var Date $dateService */
+        $dateService = $this->get('dateTime_service');
+
         $newRecognitionDetails = array();
         /** @var RecognitionReceived $newRecognitionReceived */
         foreach ($newRecognitionReceivedList as $newRecognitionReceived) {
@@ -165,7 +169,7 @@ class DefaultController extends Controller
                     '<span class="strong">' . $sender->getFullname() . '</span>'
                     . ' sent you <span class="strong">' . $criteria->getTitle() . '</span>'
                     . ' at '
-                    . $newRecognitionReceived->getHumanTiming($newRecognitionReceived->getReceivedAt())
+                    . $dateService->getHumanTiming($newRecognitionReceived->getReceivedAt())
                 ;
 
                 if ($newRecognitionReceived->getResponseType() == RecognitionReceived::RESPONDED) {
@@ -177,7 +181,7 @@ class DefaultController extends Controller
                     $responseRecognition = $newRecognitionReceived->getRecognition();
                     $senderName = $responseRecognition->getSender()->getFullname();
                     $criteriaTitle = $responseRecognition->getSingleCriteria()->getTitleToDisplay();
-                    $responseType = $responseRecognition->getHumanTiming($responseRecognition->getSentAt());
+                    $responseType = $dateService->getHumanTiming($responseRecognition->getSentAt());
                     $originalCriteriaTitle = $recognition->getSingleCriteria()->getTitle();
 
                     $recognitionMessage =
