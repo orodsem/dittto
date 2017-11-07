@@ -78,12 +78,24 @@ class DefaultController extends Controller
             Setup Routes
             Make sure fetching works
             Make sure pagination works
-            Make sure results are returned
-        */
+            Make sure results are returned            
+        */ 
 
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $itemsPerPage = 5;
+        $offset = ($page - 1) * $itemsPerPage;
+
+        $recognitionReceivedRepo = $em->getRepository('DitttoRecognitionBundle:RecognitionReceived');
+        $totalReceivedByUser = $recognitionReceivedRepo->getRecognitionReceivedByUserId($user->getId());
+        $receivedRecognition = $recognitionReceivedRepo->getRecognitionReceivedListByUserId($user->getId(), $offset, $itemsPerPage);
 
         $data = [
-            'page' => $page
+            'currentPage' => $page,
+            'itemsPerPage' => $itemsPerPage,
+            'receivedRecognitionCount' => $totalReceivedByUser,
+            'receivedRecognition' => $receivedRecognition,            
         ];
 
         return new JsonResponse($data);

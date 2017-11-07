@@ -29,6 +29,28 @@ class RecognitionReceivedRepository extends EntityRepository
     }
 
     /**
+     * returns total number of recognitions received by the given user
+     *
+     * @param $userId
+     * @return int|mixed
+     */
+    public function getRecognitionReceivedListByUserId($userId, $offset, $limit)
+    {
+        print_r($userId);
+
+        $totalReceivedByUser = $this->createQueryBuilder('r')            
+            ->select(array('r'))            
+            ->where('r.receiver = :receiver')            
+            ->setParameter('receiver', $userId)
+            ->orderBy('r.id', 'DESC')
+            ->setFirstResult( $offset )
+            ->setMaxResults( $limit )
+            ->getQuery()->getArrayResult();
+
+        return $totalReceivedByUser;
+    }
+
+    /**
      * Returns all recognitions that not responded yet and should be responded
      *
      * @param $userId
