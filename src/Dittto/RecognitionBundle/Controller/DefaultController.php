@@ -121,7 +121,11 @@ class DefaultController extends Controller
         $user = $this->getUser();
 
         $recognition = new Recognition();
-        $form = $this->createForm(RecognitionType::class, $recognition);
+        $form = $this->createForm(
+            RecognitionType::class,
+            $recognition,
+            array('user' => $this->getUser())
+        );
 
         // update the recognition object with the submitted form
         $form->handleRequest($request);

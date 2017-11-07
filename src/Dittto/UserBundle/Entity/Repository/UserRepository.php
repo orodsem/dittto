@@ -2,23 +2,21 @@
 
 namespace Dittto\UserBundle\Entity\Repository;
 
+use Dittto\UserBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Doctrine\ORM\EntityRepository;
 
-class UserRepository extends EntityRepository implements UserLoaderInterface
+class UserRepository extends EntityRepository
 {
     /**
-     * @param string $username
-     * @return mixed
+     * @param User $user
+     * @return \Doctrine\ORM\QueryBuilder
      */
-    public function loadUserByUsername($username)
+    public function getEligibleRecognitionUsers(User $user)
     {
         return $this->createQueryBuilder('u')
-            ->where('u.username = :username AND u.isActive = :isActive')
-            ->setParameter('username', $username)
-            ->setParameter('isActive', true)
-            ->getQuery()
-            ->getOneOrNullResult();
+            ->where('u.username != :username')
+            ->setParameter('username', $user->getUsername());
     }
 
     /**
