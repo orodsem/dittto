@@ -3,15 +3,15 @@ dittto_recognition_dashboard:
     defaults: { _controller: DitttoRecognitionBundle:Default:dashboard }
 
 dittto_recognition_recognise_user:
-    path:     /recognise
+    path:     /recognition/send
     defaults: { _controller: DitttoRecognitionBundle:Default:recognise }
 
 dittto_recognition_recognise_back_user:
-    path:     /recognise-back
+    path:     /recognition/reply
     defaults: { _controller: DitttoRecognitionBundle:Default:recogniseBack }
 
 dittto_recognition_recognition:
-    path:     /recognition
+    path:     /recognition/received
     defaults: { _controller: DitttoRecognitionBundle:Default:recognition }
 
 dittto_recognition_received:

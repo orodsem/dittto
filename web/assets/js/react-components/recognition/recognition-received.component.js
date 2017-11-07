@@ -7,7 +7,7 @@ class RecognitionListing extends React.Component {
 					<td>{item.id}</td>
 					<td>{item.responseType}</td>
 					<td>{item.senderName}</td>
-					<td>{item.recognitionId}</td>
+					<td>{item.receivedAt.date}</td>
 				</tr>
 			);
 		});
@@ -21,7 +21,7 @@ class RecognitionListing extends React.Component {
 						<th>ID</th>
 						<th>Response Type</th>
 						<th>Sender</th>
-						<th>Recognition ID</th>
+						<th>Received At</th>
 					</tr>
 					{recogList}
 				</table>				

@@ -38,7 +38,7 @@ class RecognitionReceivedRepository extends EntityRepository
     {
         
         $totalReceivedByUser = $this->createQueryBuilder('r')            
-            ->select(array('r'))            
+            ->select('r')
             ->where('r.receiver = :receiver')            
             ->setParameter('receiver', $userId)
             ->orderBy('r.id', 'DESC')

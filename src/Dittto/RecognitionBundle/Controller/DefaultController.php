@@ -64,41 +64,40 @@ class DefaultController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function recognitionAction(Request $request)
     {
-
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
+        /** @var RecognitionReceivedRepository $recognitionReceivedRepo */
         $recognitionReceivedRepo = $em->getRepository('DitttoRecognitionBundle:RecognitionReceived');
-        $totalReceivedByUser = $recognitionReceivedRepo->getRecognitionReceivedByUserId($user->getId());
         $receivedRecognitionRaw = $recognitionReceivedRepo->getRecognitionReceivedListByUserId($user->getId());
-        $receivedRecognition = $this->generateRecognitions($receivedRecognitionRaw);
-
-        // list of new recognition received that not responded yet
-        $newRecognitions = $recognitionReceivedRepo->getNewRecognitionsByUserId($user->getId());
-
-        // everything about the replay back, message, sender, criteria
-        $newRecognitionDetails = $this->generateReplayToMessage($newRecognitions);
+        $receivedRecognition = $this->generateRecognitionsReceived($receivedRecognitionRaw);
 
         return $this->render('DitttoRecognitionBundle:Default:recognition.html.twig',
             array(
-                'receivedRecognitionCount' => $totalReceivedByUser,
                 'receivedRecognition' => json_encode($receivedRecognition),
-                'notRepliedRecognitionDetails' => $newRecognitionDetails
             )
         );
     }
 
+    /**
+     * @param $page
+     * @return JsonResponse
+     */
     public function recognitionReceivedAction($page)
     {
-
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
         $itemsPerPage = 5;
         $offset = ($page - 1) * $itemsPerPage;
 
+        /** @var RecognitionReceivedRepository $recognitionReceivedRepo */
         $recognitionReceivedRepo = $em->getRepository('DitttoRecognitionBundle:RecognitionReceived');
         $totalReceivedByUser = $recognitionReceivedRepo->getRecognitionReceivedByUserId($user->getId());
         $receivedRecognition = $recognitionReceivedRepo->getRecognitionReceivedListByUserId($user->getId(), $offset, $itemsPerPage);
@@ -252,29 +251,34 @@ class DefaultController extends Controller
         return $newRecognitionDetails;
     }
 
-    private function generateRecognitions($recognitions)
+    /**
+     * This generate a list of recognition received by user, which will be displayed in a table view
+     *
+     * @param $recognitions
+     * @return array
+     */
+    private function generateRecognitionsReceived($recognitions)
     {   
+        $recognitionReceivedDetails = array();
 
-        $newRecognitionDetails = array();
-
-        foreach ($recognitions as $recognitionRaw) {
-
-            $recognition = $recognitionRaw->getRecognition();
+        /** @var RecognitionReceived $recognitionReceived */
+        foreach ($recognitions as $recognitionReceived) {
+            $recognition = $recognitionReceived->getRecognition();
             $sender = $recognition->getSender();
-            $listCriteria = $recognition->getCriteria();
             $senderName = $recognition->getSender()->getFullname();
 
-            $newRecognitionDetails[] = array(
-                'id' => $recognitionRaw->getId(),                
+            $recognitionReceivedDetails[] = array(
+                'id' => $recognitionReceived->getId(),
                 'senderId' => $sender->getId(),
                 'senderName' => $senderName,
                 'recognitionId' => $recognition->getId(),
-                'responseType' => $recognitionRaw->getResponseType()
+                'responseType' => $recognition->getSingleCriteria()->getTitle(),
+                'receivedAt' => $recognitionReceived->getReceivedAt()
             );
 
         }
 
-        return $newRecognitionDetails;
+        return $recognitionReceivedDetails;
 
     }
 
