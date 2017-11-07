@@ -10,3 +10,13 @@ dittto_recognition_recognise_back_user:
     path:     /recognise-back
     defaults: { _controller: DitttoRecognitionBundle:Default:recogniseBack }
 
+dittto_recognition_recognition:
+    path:     /recognition
+    defaults: { _controller: DitttoRecognitionBundle:Default:recognition }
+
+dittto_recognition_received:
+    path:     /recognition/received/{page}
+    defaults: { _controller: DitttoRecognitionBundle:Default:recognitionReceived }
+    requirements:
+        page: '\d+'
+

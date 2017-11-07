@@ -64,6 +64,31 @@ class DefaultController extends Controller
         );
     }
 
+    public function recognitionAction(Request $request)
+    {
+        return $this->render('DitttoRecognitionBundle:Default:recognition.html.twig',
+            array('test' => 'test')
+        );
+    }
+
+    public function recognitionReceivedAction($page)
+    {
+
+        /*
+            Setup Routes
+            Make sure fetching works
+            Make sure pagination works
+            Make sure results are returned
+        */
+
+
+        $data = [
+            'page' => $page
+        ];
+
+        return new JsonResponse($data);
+    }
+
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
