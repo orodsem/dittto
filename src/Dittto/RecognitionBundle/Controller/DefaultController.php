@@ -66,20 +66,32 @@ class DefaultController extends Controller
 
     public function recognitionAction(Request $request)
     {
+
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $recognitionReceivedRepo = $em->getRepository('DitttoRecognitionBundle:RecognitionReceived');
+        $totalReceivedByUser = $recognitionReceivedRepo->getRecognitionReceivedByUserId($user->getId());
+        $receivedRecognitionRaw = $recognitionReceivedRepo->getRecognitionReceivedListByUserId($user->getId());
+        $receivedRecognition = $this->generateRecognitions($receivedRecognitionRaw);
+
+        // list of new recognition received that not responded yet
+        $newRecognitions = $recognitionReceivedRepo->getNewRecognitionsByUserId($user->getId());
+
+        // everything about the replay back, message, sender, criteria
+        $newRecognitionDetails = $this->generateReplayToMessage($newRecognitions);
+
         return $this->render('DitttoRecognitionBundle:Default:recognition.html.twig',
-            array('test' => 'test')
+            array(
+                'receivedRecognitionCount' => $totalReceivedByUser,
+                'receivedRecognition' => json_encode($receivedRecognition),
+                'notRepliedRecognitionDetails' => $newRecognitionDetails
+            )
         );
     }
 
     public function recognitionReceivedAction($page)
     {
-
-        /*
-            Setup Routes
-            Make sure fetching works
-            Make sure pagination works
-            Make sure results are returned            
-        */ 
 
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -239,4 +251,32 @@ class DefaultController extends Controller
 
         return $newRecognitionDetails;
     }
+
+    private function generateRecognitions($recognitions)
+    {   
+
+        $newRecognitionDetails = array();
+
+        foreach ($recognitions as $recognitionRaw) {
+
+            $recognition = $recognitionRaw->getRecognition();
+            $sender = $recognition->getSender();
+            $listCriteria = $recognition->getCriteria();
+            $senderName = $recognition->getSender()->getFullname();
+
+            $newRecognitionDetails[] = array(
+                'id' => $recognitionRaw->getId(),                
+                'senderId' => $sender->getId(),
+                'senderName' => $senderName,
+                'recognitionId' => $recognition->getId(),
+                'responseType' => $recognitionRaw->getResponseType()
+            );
+
+        }
+
+        return $newRecognitionDetails;
+
+    }
+
+
 }

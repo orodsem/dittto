@@ -34,10 +34,9 @@ class RecognitionReceivedRepository extends EntityRepository
      * @param $userId
      * @return int|mixed
      */
-    public function getRecognitionReceivedListByUserId($userId, $offset, $limit)
+    public function getRecognitionReceivedListByUserId($userId, $offset = 0, $limit = 5)
     {
-        print_r($userId);
-
+        
         $totalReceivedByUser = $this->createQueryBuilder('r')            
             ->select(array('r'))            
             ->where('r.receiver = :receiver')            
@@ -45,7 +44,7 @@ class RecognitionReceivedRepository extends EntityRepository
             ->orderBy('r.id', 'DESC')
             ->setFirstResult( $offset )
             ->setMaxResults( $limit )
-            ->getQuery()->getArrayResult();
+            ->getQuery()->getResult();
 
         return $totalReceivedByUser;
     }
