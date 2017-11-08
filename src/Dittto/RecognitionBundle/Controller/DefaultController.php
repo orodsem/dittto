@@ -281,7 +281,7 @@ class DefaultController extends Controller
                 'senderId' => $sender->getId(),
                 'senderName' => $senderName,
                 'recognitionId' => $recognition->getId(),
-                'responseType' => $recognition->getSingleCriteria()->getTitle(),
+                'responseType' => $recognition->getAllCriteriaTitles(),
                 'receivedAt' => $recognitionReceived->getReceivedAt()
             );
 

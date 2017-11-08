@@ -121,6 +121,24 @@ class Recognition extends BaseEntity
     }
 
     /**
+     * return all criteria titles in comma separated format
+     *
+     * @return string
+     */
+    public function getAllCriteriaTitles()
+    {
+        $criteria = $this->criteria;
+        $titles = array();
+
+        /**  @var Criteria $criterion */
+        foreach ($criteria as $key => $criterion) {
+            $titles[] = $criterion->getTitle();
+        }
+
+        return implode(', ', $titles);
+    }
+
+    /**
      * @param ArrayCollection $criteria
      */
     public function setCriteria($criteria)
