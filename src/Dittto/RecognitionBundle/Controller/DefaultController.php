@@ -77,10 +77,15 @@ class DefaultController extends Controller
         $recognitionReceivedRepo = $em->getRepository('DitttoRecognitionBundle:RecognitionReceived');
         $receivedRecognitionRaw = $recognitionReceivedRepo->getRecognitionReceivedListByUserId($user->getId());
         $receivedRecognition = $this->generateRecognitionsReceived($receivedRecognitionRaw);
+        $totalReceivedByUser = $recognitionReceivedRepo->getRecognitionReceivedByUserId($user->getId());
+        $itemsPerPage = 5;
 
         return $this->render('DitttoRecognitionBundle:Default:recognition.html.twig',
-            array(
+            array(                
                 'receivedRecognition' => json_encode($receivedRecognition),
+                'recognitionReceivedCount' => $totalReceivedByUser,
+                'itemsPerPage' => $itemsPerPage,
+                'currentPage' => 1
             )
         );
     }

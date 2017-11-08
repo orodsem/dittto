@@ -1,7 +1,55 @@
-class RecognitionListing extends React.Component {
+class RecognitionListingPagination extends React.Component {
 	render(){
 
-		let recogList = this.props.receivedRecognition.map( (item) => {
+		let totalNumberOfPages = Math.ceil(this.props.recognitionReceivedCount/this.props.itemsPerPage);
+		let currentPage = this.props.currentPage;
+		let numOfPagesToDisplay = 3;
+		let pages = [];
+
+		if (currentPage > 1) {
+
+			pages.push(
+				<li><a href={'/recognition/received/'+(currentPage-1)}>Jump to first</a></li>
+			);
+
+			pages.push(
+				<li><a href={'/recognition/received/'+(currentPage-1)}>Prev</a></li>
+			);
+
+		}
+
+		for(let i = 0; i < numOfPagesToDisplay; i++){
+
+			let url = '/recognition/received/'+(currentPage+i);
+
+			pages.push(
+				<li><a href={url}>{currentPage+i}</a></li>
+			);
+		}
+
+		if (currentPage < totalNumberOfPages){
+			pages.push(
+				<li><a href={'/recognition/received/'+(currentPage+1)}>Next</a></li>
+			);
+
+			pages.push(
+				<li><a href={'/recognition/received/'+totalNumberOfPages}>Jump to Last</a></li>
+			);
+		}
+
+		return(
+			<ul className="pagination">
+        {pages}
+	    </ul>
+		);
+	}
+}
+
+class RecognitionListing extends React.Component {
+
+	render(){
+
+		let recogListRows = this.props.receivedRecognition.map( (item) => {
 
 			let formattedDate = moment(item.receivedAt.date).format('MM-DD-YYYY, h:mm a');
 
@@ -18,23 +66,23 @@ class RecognitionListing extends React.Component {
 		return(
 
 			<div className="recognition-list">
-				<table className="table table-striped table-condensed">
+				<table className="table table-striped table-condensed">				
 					<tr>
 						<th>ID</th>
 						<th>Response Type</th>
 						<th>Sender</th>
 						<th>Received At</th>
 					</tr>
-					{recogList}
+
+					{recogListRows}
+
 				</table>
 
-				<ul className="pagination">
-	        <li><a href="#">1</a></li>
-	        <li><a href="#">2</a></li>
-	        <li><a href="#">3</a></li>
-	        <li><a href="#">4</a></li>
-	        <li><a href="#">5</a></li>
-		    </ul>			
+				<RecognitionListingPagination 
+					recognitionReceivedCount={this.props.recognitionReceivedCount}
+					itemsPerPage={this.props.itemsPerPage}
+					currentPage={this.props.currentPage}/>
+							
 			</div>
 		);
 	}

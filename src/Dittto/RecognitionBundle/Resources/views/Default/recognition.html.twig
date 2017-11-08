@@ -24,10 +24,18 @@
     <script type="text/babel">
 
         let receivedRecognition = JSON.parse(JSON.stringify({{receivedRecognition | raw}}));
+        let recognitionReceivedCount = {{recognitionReceivedCount}};
+        let itemsPerPage = {{itemsPerPage}};
+        let currentPage = {{currentPage}};
+
         console.log(receivedRecognition);
 
         ReactDOM.render(
-            <RecognitionListing receivedRecognition={receivedRecognition}/>,
+            <RecognitionListing 
+                receivedRecognition={receivedRecognition}
+                recognitionReceivedCount={recognitionReceivedCount}
+                itemsPerPage={itemsPerPage}
+                currentPage={currentPage}/>,
             document.getElementById('recognition-listing')
         );
     </script>
