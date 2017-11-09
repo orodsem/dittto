@@ -18,6 +18,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "select2": "^4.0.4",
-    "tether": "^1.4.0"
+    "tether": "^1.4.0",
+    "moment": "^2.19.1"
   }
 }

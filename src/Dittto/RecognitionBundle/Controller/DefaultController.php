@@ -72,6 +72,59 @@ class DefaultController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    public function recognitionAction(Request $request)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var RecognitionReceivedRepository $recognitionReceivedRepo */
+        $recognitionReceivedRepo = $em->getRepository('DitttoRecognitionBundle:RecognitionReceived');
+        $receivedRecognitionRaw = $recognitionReceivedRepo->getRecognitionReceivedListByUserId($user->getId());
+        $receivedRecognition = $this->generateRecognitionsReceived($receivedRecognitionRaw);
+        $totalReceivedByUser = $recognitionReceivedRepo->getRecognitionReceivedByUserId($user->getId());
+        $itemsPerPage = 5;
+
+        return $this->render('DitttoRecognitionBundle:Default:recognition.html.twig',
+            array(                
+                'receivedRecognition' => json_encode($receivedRecognition),
+                'recognitionReceivedCount' => $totalReceivedByUser,
+                'itemsPerPage' => $itemsPerPage,
+                'currentPage' => 1
+            )
+        );
+    }
+
+    /**
+     * @param $page
+     * @return JsonResponse
+     */
+    public function recognitionReceivedAction($page)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $itemsPerPage = 5;
+        $offset = ($page - 1) * $itemsPerPage;
+
+        /** @var RecognitionReceivedRepository $recognitionReceivedRepo */
+        $recognitionReceivedRepo = $em->getRepository('DitttoRecognitionBundle:RecognitionReceived');
+        $totalReceivedByUser = $recognitionReceivedRepo->getRecognitionReceivedByUserId($user->getId());
+        $receivedRecognition = $recognitionReceivedRepo->getRecognitionReceivedListByUserId($user->getId(), $offset, $itemsPerPage);
+
+        $data = [
+            'currentPage' => $page,
+            'itemsPerPage' => $itemsPerPage,
+            'receivedRecognitionCount' => $totalReceivedByUser,
+            'receivedRecognition' => $receivedRecognition,            
+        ];
+
+        return new JsonResponse($data);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function recogniseAction(Request $request)
     {
         $user = $this->getUser();
@@ -210,4 +263,37 @@ class DefaultController extends Controller
 
         return $newRecognitionDetails;
     }
+
+    /**
+     * This generate a list of recognition received by user, which will be displayed in a table view
+     *
+     * @param $recognitions
+     * @return array
+     */
+    private function generateRecognitionsReceived($recognitions)
+    {   
+        $recognitionReceivedDetails = array();
+
+        /** @var RecognitionReceived $recognitionReceived */
+        foreach ($recognitions as $recognitionReceived) {
+            $recognition = $recognitionReceived->getRecognition();
+            $sender = $recognition->getSender();
+            $senderName = $recognition->getSender()->getFullname();
+
+            $recognitionReceivedDetails[] = array(
+                'id' => $recognitionReceived->getId(),
+                'senderId' => $sender->getId(),
+                'senderName' => $senderName,
+                'recognitionId' => $recognition->getId(),
+                'responseType' => $recognition->getAllCriteriaTitles(),
+                'receivedAt' => $recognitionReceived->getReceivedAt()
+            );
+
+        }
+
+        return $recognitionReceivedDetails;
+
+    }
+
+
 }

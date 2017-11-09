@@ -2,11 +2,21 @@ dittto_recognition_dashboard:
     path:     /dashboard
     defaults: { _controller: DitttoRecognitionBundle:Default:dashboard }
 
-dittto_recognition_recognise_user:
-    path:     /recognise
+dittto_recognition_send:
+    path:     /recognition/send
     defaults: { _controller: DitttoRecognitionBundle:Default:recognise }
 
 dittto_recognition_recognise_back_user:
-    path:     /recognise-back
+    path:     /recognition/reply
     defaults: { _controller: DitttoRecognitionBundle:Default:recogniseBack }
+
+dittto_recognition_report_received:
+    path:     /recognition/received
+    defaults: { _controller: DitttoRecognitionBundle:Default:recognition }
+
+dittto_recognition_received:
+    path:     /recognition/received/{page}
+    defaults: { _controller: DitttoRecognitionBundle:Default:recognitionReceived }
+    requirements:
+        page: '\d+'
 
