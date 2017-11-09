@@ -48,6 +48,7 @@ class DefaultController extends Controller
         /** @var RecognitionRepository $recognitionRepo */
         $recognitionRepo = $em->getRepository('DitttoRecognitionBundle:Recognition');
         $totalSentByUser = $recognitionRepo->getTotalRecognitionSentByUserId($user->getId());
+        $rankDetails = $recognitionRepo->getUserReceivedRank($user->getId());
 
         // displayed in charts
         $userVsTotal = array(
@@ -59,7 +60,10 @@ class DefaultController extends Controller
         return $this->render('DitttoRecognitionBundle:Default:dashboard.html.twig',
             array(
                 'userVsTotal' => json_encode($userVsTotal),
-                'notRepliedRecognitionDetails' => $newRecognitionDetails
+                'notRepliedRecognitionDetails' => $newRecognitionDetails,
+                'totalSentByUser' => $totalSentByUser,
+                'totalReceivedByUser' => $totalReceivedByUser,
+                'rankDetails' => $rankDetails
                 )
         );
     }

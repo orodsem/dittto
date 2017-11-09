@@ -9,9 +9,26 @@
 }
 
 .chart-header{
-	background: #2980b9;	
-  color: #fff;
-  padding: 12px;  
-  font-weight: 300;
-  border-radius: 7px 7px 0 0;
+    background: #2980b9;
+    color: #fff;
+    padding: 12px;
+    font-weight: 300;
+    border-radius: 7px 7px 0 0;
+}
+
+.total-recognition-box {
+    background:#fff;
+    border:1px solid #f1f1f1;
+    /*padding: 5px 10px 0px 10px;*/
+    margin-bottom: 10px;
+}
+
+.rank-img {
+    width: 40px;
+    height: 50px;
+}
+
+.rank-box-text {
+    vertical-align: middle;
+    line-height: 50px;
 }
