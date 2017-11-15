@@ -26,6 +26,12 @@ class RecognitionRepository extends EntityRepository
         return $totalSentByUser;
     }
 
+    /**
+     * returns the rank of user based on how many recognition sent
+     *
+     * @param $userId
+     * @return array
+     */
     public function getUserReceivedRank($userId)
     {
         $query = 'SELECT * FROM (
