@@ -39,7 +39,7 @@ class User extends BaseUser
     private $isDeleted;
 
     /**
-     * @ORM\Column(name="sent_at", type="datetime", nullable=true)
+     * @ORM\Column(name="birthday", type="datetime", nullable=true)
      */
     private $birthday;
 
