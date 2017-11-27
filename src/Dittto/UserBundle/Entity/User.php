@@ -39,6 +39,11 @@ class User extends BaseUser
     private $isDeleted;
 
     /**
+     * @ORM\Column(name="sent_at", type="datetime", nullable=true)
+     */
+    private $birthday;
+
+    /**
      * @ORM\ManyToMany(targetEntity="\Dittto\RecognitionBundle\Entity\Recognition", mappedBy="receivers")
      */
     protected $recognitions;
@@ -133,5 +138,21 @@ class User extends BaseUser
     public function getSchoolClasses()
     {
         return $this->schoolClasses;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBirthday()
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * @param mixed $birthday
+     */
+    public function setBirthday($birthday)
+    {
+        $this->birthday = $birthday;
     }
 }

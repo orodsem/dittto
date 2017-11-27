@@ -251,7 +251,7 @@ class DefaultController extends Controller
                 }
 
                 $newRecognitionDetails[] = array(
-                    'criteriaId' => 3, // TODO: at the moment this is the only like. This should be fetched from DB
+                    'criteriaId' => 3, // TODO: at the moment this is the only response (like). This should be fetched from DB
                     'senderId' => $sender->getId(),
                     'message' => $recognitionMessage,
                     'hasReplied' => false,
