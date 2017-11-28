@@ -57,13 +57,20 @@ class DefaultController extends Controller
             'totalRecognitions' => $totalRecognitions,
             );
 
+        // TODO: this should come from client table and ideally configurable
+        $totalRecognitionsGoal = 10;
+
+        $sentPercentage = ($totalSentByUser * 100) / $totalRecognitionsGoal;
+
         return $this->render('DitttoRecognitionBundle:Default:dashboard.html.twig',
             array(
                 'userVsTotal' => json_encode($userVsTotal),
                 'notRepliedRecognitionDetails' => $newRecognitionDetails,
                 'totalSentByUser' => $totalSentByUser,
                 'totalReceivedByUser' => $totalReceivedByUser,
-                'rankDetails' => $rankDetails
+                'totalRecognitionsGoal' => $totalRecognitionsGoal,
+                'rankDetails' => $rankDetails,
+                'sentPercentage' => $sentPercentage . '%'
                 )
         );
     }
