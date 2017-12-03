@@ -21,9 +21,10 @@ class RecognitionListingPagination extends React.Component {
 		for(let i = 0; i < numOfPagesToDisplay; i++){
 
 			let url = '/recognition/received/'+(currentPage+i);
+			let activeClass = (currentPage == i+1) ? 'active' : '';
 
 			pages.push(
-				<li><a href={url}>{currentPage+i}</a></li>
+				<li className={activeClass}><a href={url}>{currentPage+i}</a></li>
 			);
 		}
 
@@ -66,7 +67,7 @@ class RecognitionListing extends React.Component {
 		return(
 
 			<div className="recognition-list">
-				<table className="table table-striped table-condensed">				
+				<table className="table table-striped table-condensed">
 					<tr>
 						<th>ID</th>
 						<th>Response Type</th>

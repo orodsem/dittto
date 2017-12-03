@@ -1,0 +1,32 @@
+{
+  "name": "dittto",
+  "version": "1.0.0",
+  "description": "dittto ======",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orodsem/dittto.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orodsem/dittto/issues"
+  },
+  "homepage": "https://github.com/orodsem/dittto#readme",
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.17.0",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "webpack-notifier": "^1.5.0"
+  },
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  }
+}
