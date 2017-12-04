@@ -24,6 +24,8 @@ Encore
     // show OS notifications when builds finish/fail
     .enableBuildNotifications()
 
+    .enableReactPreset()
+
     // create hashed filenames (e.g. app.abc123.css)
     // .enableVersioning()
 ;
