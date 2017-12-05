@@ -9,7 +9,7 @@
 }
 
 .chart-header {
-    background: #2980b9;
+    background: #C9A5DF;
     color: #fff;
     padding: 12px;
     font-weight: 300;
@@ -50,7 +50,7 @@
 
 .percentage-bar-chart__percentage {
     display: table-cell;
-    border: 3px solid #2c7bb4;
+    border: 3px solid #78B3C6;
     border-radius: 50%;
     min-width: 48px;
     height: 48px;
@@ -75,13 +75,13 @@
 .percentage-bar-chart__total-bar {
     display: block;
     height: 4px;
-    background-color: #043d66
+    background-color: #BFE1D9;
 }
 
 .percentage-bar-chart__percentage-bar {
     display: block;
     height: 8px;
-    background-color: #2c7bb4
+    background-color: #78B3C6;
 }
 
 .percentage-bar-chart__figure {
