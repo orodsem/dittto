@@ -1,9 +1,7 @@
 import React from 'react';
-// import connect from 'redux-connect-decorator';
 import {connect} from 'react-redux';
-import Pagination from '../pagination'
 
-@connect((store) => {	
+@connect((store) => {
 	return {
 		recogReceived: JSON.parse(store.recognitionList.recogReceived),
 		recogReceivedCount: store.recognitionList.recogReceivedCount,
@@ -48,12 +46,12 @@ class RecognitionListing extends React.Component {
 					</tbody>
 				</table>
 
-				{
+				{/*
 				<Pagination 
 					recognitionReceivedCount={this.props.recogReceivedCount}
 					itemsPerPage={this.props.itemsPerPage}
 					currentPage={this.props.currentPage}/>
-				}
+				*/}
 							
 			</div>
 		);
