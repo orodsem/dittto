@@ -1,17 +1,117 @@
-#piechart-received, 
-#piechart-sent{
-	background:#fff;
-	border:1px solid #f1f1f1;
+#piechart-received,
+#piechart-sent {
+    background: #fff;
+    border: 1px solid #f1f1f1;
 }
 
-#piechart-received > div > div, #piechart-sent > div > div{
-	margin: 0 auto;	
+#piechart-received > div > div, #piechart-sent > div > div {
+    margin: 0 auto;
 }
 
-.chart-header{
-	background: #2980b9;	
-  color: #fff;
-  padding: 12px;  
-  font-weight: 300;
-  border-radius: 7px 7px 0 0;
+.chart-header {
+    background: #C9A5DF;
+    color: #fff;
+    padding: 12px;
+    font-weight: 300;
+    border-radius: 7px 7px 0 0;
 }
+
+.total-recognition-box {
+    background: #fff;
+    border: 1px solid #f1f1f1;
+    /*padding: 5px 10px 0px 10px;*/
+    margin-bottom: 10px;
+}
+
+.rank-img {
+    width: 40px;
+    height: 50px;
+}
+
+.rank-box-text {
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+/*  This styles progress bar [START] */
+.percentage-bar-chart__chart-wrapper {
+    display: inline-block;
+    padding: 8px;
+    text-align: left;
+    width: 100%;
+    vertical-align: top;
+}
+
+@media (min-width: 37.5em) {
+    .percentage-bar-chart__chart-wrapper {
+        padding-left: 16px
+    }
+}
+
+.percentage-bar-chart__percentage {
+    display: table-cell;
+    border: 3px solid #78B3C6;
+    border-radius: 50%;
+    min-width: 48px;
+    height: 48px;
+    text-align: center;
+    padding-top: 0.625rem
+}
+
+.gel-pica {
+    font-size: 0.9375rem;
+    line-height: 1.25rem
+}
+
+.percentage-bar-chart__chart {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    position: relative;
+    left: -1px;
+    top: -3px
+}
+
+.percentage-bar-chart__total-bar {
+    display: block;
+    height: 4px;
+    background-color: #BFE1D9;
+}
+
+.percentage-bar-chart__percentage-bar {
+    display: block;
+    height: 8px;
+    background-color: #78B3C6;
+}
+
+.percentage-bar-chart__figure {
+    display: block;
+    text-align: right;
+    padding-top: 0.75rem
+}
+
+.gel-minion, .minion {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    text-transform: uppercase
+}
+
+@media (min-width: 37.5em) {
+    .gel-minion, .minion {
+        font-size: 0.8125rem
+    }
+
+    .no-touch .gel-minion, .no-touch .minion {
+        font-size: 0.75rem
+    }
+}
+
+.percentage-bar-chart__sub-heading {
+    text-align: right
+}
+
+.percentage-bar-chart__total {
+    display: table-cell;
+    padding-left: 8px
+}
+/*  This styles progress bar [END] */
