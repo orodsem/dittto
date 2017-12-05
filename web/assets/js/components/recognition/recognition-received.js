@@ -1,17 +1,21 @@
 import React from 'react';
+// import connect from 'redux-connect-decorator';
+import {connect} from 'react-redux';
 import Pagination from '../pagination'
 
+@connect((store) => {	
+	return {
+		recogReceived: JSON.parse(store.recognitionList.recogReceived),
+		recogReceivedCount: store.recognitionList.recogReceivedCount,
+		itemsPerPage: store.recognitionList.itemsPerPage,
+		currentPage: store.recognitionList.currentPage,
+	}
+})
 class RecognitionListing extends React.Component {
 
 	render(){
 
-		console.log(this.props, 'PROPS');
-		let {recogReceived} = this.props; 
-
-		recogReceived = JSON.parse(recogReceived);
-
-		console.log(recogReceived, 'recogReceived');
-
+		let {recogReceived} = this.props;
 		let recogListRows = recogReceived.map( (item) => {
 
 			let formattedDate = moment(item.receivedAt.date).format('MM-DD-YYYY, h:mm a');

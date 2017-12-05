@@ -19,3 +19,4 @@
 /web/bundles/
 .idea9
 /node_modules/*
+npm-debug.log

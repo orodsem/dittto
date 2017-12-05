@@ -1,9 +1,12 @@
-const recognitionListReducer = (state=[], action) => {
-
+const recognitionListReducer = (state={
+	recogReceived: [],
+	recogReceivedCount: 0,
+	itemsPerPage: 0,
+	currentPage: 0,
+}, action) => {
 	switch(action.type) {
-		case 'RECOGNITION_LIST_INIT':
-    console.log('RECOGNITION_LIST_INIT');
-    break;
+		case 'INIT_RECOG_LIST':
+	    return {...state, ...action.payload};
 	}
 
 	return state;

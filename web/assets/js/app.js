@@ -22,16 +22,20 @@ const recogListRoot = document.getElementById('recognition-listing');
 const recogListData = recogListRoot.dataset;
 
 
-// console.log(recogListData, 'recogListData');
+store.subscribe(() => {
+  console.log('State Changed: ', store.getState());
+});
 
 
 if (recogListRoot) {
   try {
 
-  	// store.dispatch(initRecogList(recogListData));
+  	store.dispatch(initRecogList(recogListData));
 
     ReactDOM.render(
-      <RecognitionListing {...(recogListRoot.dataset)}/>,      
+      <Provider store={store}>
+        <RecognitionListing />
+      </Provider>,
       recogListRoot
     );
   } catch (error) {

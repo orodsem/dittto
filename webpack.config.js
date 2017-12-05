@@ -28,6 +28,13 @@ Encore
 
     // create hashed filenames (e.g. app.abc123.css)
     // .enableVersioning()
+
+    .configureBabel(function(babelConfig) {
+        // no plugins are added by default, but you can add some
+        babelConfig.plugins.push('transform-object-rest-spread');
+        babelConfig.plugins.push('babel-plugin-transform-decorators-legacy');
+        babelConfig.plugins.push('babel-plugin-transform-decorators');
+    })
 ;
 
 // export the final configuration
