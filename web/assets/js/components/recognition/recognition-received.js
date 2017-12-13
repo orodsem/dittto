@@ -1,15 +1,43 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import Pagination from '../pagination';
+import axios from 'axios';
+import * as recogList from '../../actions/recognitionListAction';
 
 @connect((store) => {
-	return {
-		recogReceived: JSON.parse(store.recognitionList.recogReceived),
+	return {		
+		recogReceived: store.recognitionList.recogReceived,
 		recogReceivedCount: store.recognitionList.recogReceivedCount,
 		itemsPerPage: store.recognitionList.itemsPerPage,
 		currentPage: store.recognitionList.currentPage,
 	}
 })
 class RecognitionListing extends React.Component {
+
+	constructor(props) {
+    super(props);
+    this.handlePagination = this.handlePagination.bind(this);;
+    this.fetchRecogListing = this.fetchRecogListing.bind(this);
+  }
+
+	handlePagination(page){		
+		this.fetchRecogListing(page);
+	}
+
+	fetchRecogListing(page){
+		
+		this.props.dispatch((dispatch) => {
+			dispatch(recogList.startFetchRecogList());
+			axios.get('http://127.0.0.1:8000/recognition/received/'+page)
+				.then((response) => {
+					dispatch(recogList.fetchRecogListFulfilled(response.data));	
+					console.log(response.data, 'RESPONSE!');
+				}).catch((err) => {
+					dispatch(recogList.fetchRecogListError, "ERROR: " + err);
+				});
+		});
+
+	}
 
 	render(){
 
@@ -46,13 +74,8 @@ class RecognitionListing extends React.Component {
 					</tbody>
 				</table>
 
-				{/*
-				<Pagination 
-					recognitionReceivedCount={this.props.recogReceivedCount}
-					itemsPerPage={this.props.itemsPerPage}
-					currentPage={this.props.currentPage}/>
-				*/}
-							
+				<Pagination handlePagination={this.handlePagination}/>
+
 			</div>
 		);
 	}

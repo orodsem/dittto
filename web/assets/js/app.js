@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import store from './store';	
 import RecognitionListing from './components/recognition/recognition-received';
-import Pagination from './components/pagination'
 import {initRecogList} from './actions/recognitionListAction';
 
 const recogListRoot = document.getElementById('recognition-listing');
-const recogListData = recogListRoot.dataset;
+const recogReceivedParsed = JSON.parse(recogListRoot.dataset.recogReceived);
+const recogListData = {...recogListRoot.dataset, recogReceived: recogReceivedParsed};
+console.log(recogListData, 'recogListData');
 
 store.subscribe(() => {
   console.log('State Changed: ', store.getState());
@@ -22,7 +23,6 @@ if (recogListRoot) {
       <Provider store={store}>
         <div>
           <RecognitionListing />
-          <Pagination />  
         </div>        
       </Provider>,
       recogListRoot

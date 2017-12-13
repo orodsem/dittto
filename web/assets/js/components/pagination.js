@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {goToNextPage} from '../actions/recognitionListAction';
+import {setPage} from '../actions/paginationAction';
 
 @connect((store) => {
 	return {
@@ -10,6 +10,11 @@ import {goToNextPage} from '../actions/recognitionListAction';
 	}
 })
 class Pagination extends React.Component {
+
+	setPage(page){
+		this.props.handlePagination(page);
+	}
+
 	render(){
 
 		console.log(this.props, 'PROPS');
@@ -18,23 +23,40 @@ class Pagination extends React.Component {
 		let currentPage = parseInt(this.props.currentPage);
 		let numOfPagesToDisplay = 3;
 		let pages = [];
-
+		let page = 1;
+		let activeClass = '';
 
 		if (currentPage > 1) {
-			pages.push( <li key='jump-to-first'><a href="#">Jump to first</a></li> );
-			pages.push( <li key='prev'><a href="#">Prev</a></li> );
+			pages.push( <li key='jump-to-first'><a href="#" onClick={() => this.setPage(1)}>Jump to first</a></li> );
+			pages.push( <li key='prev'><a href="#" onClick={() => this.setPage(currentPage-1)}>Prev</a></li> );
 		}
 
-		for(let i = 0; i < numOfPagesToDisplay; i++){
-			let url = '/recognition/received/'+(currentPage+i);
-			let activeClass = (currentPage == i+1) ? 'active' : '';
+		for(let i = 1; i <= numOfPagesToDisplay; i++){				
 
-			pages.push( <li className={activeClass} key={i}><a href="#">{currentPage+i}</a></li> );
+			if (currentPage < numOfPagesToDisplay) {
+				let activeClass = (currentPage == i) ? 'active' : '';
+				pages.push( <li className={activeClass} key={i}><a href="#" onClick={() => this.setPage(i)}>{i}</a></li> );
+			}
+
+			if ( currentPage >= numOfPagesToDisplay){
+				
+				if (currentPage == totalNumberOfPages) {
+					page = (currentPage+i) - (numOfPagesToDisplay);
+					activeClass = (currentPage == page) ? 'active' : '';
+					pages.push( <li className={activeClass} key={i}><a href="#" data-page={page} onClick={() => this.setPage( (currentPage+i) - (numOfPagesToDisplay) )}>{page}</a></li> );	
+				}else{
+					page = (currentPage+i) - (numOfPagesToDisplay-1);
+					activeClass = (currentPage == page) ? 'active' : '';
+					pages.push( <li className={activeClass} key={i}><a href="#" data-page={page} onClick={() => this.setPage( page )}>{page}</a></li> );	
+				}
+
+			}
+
 		}
 
 		if (currentPage < totalNumberOfPages){
-			pages.push( <li key='next'><a href="#">Next</a></li> );
-			pages.push(	<li key='jump-to-last'><a href="#">Jump to Last</a></li> );
+			pages.push( <li key='next'><a href="#" onClick={() => this.setPage(currentPage+1)}>Next</a></li> );
+			pages.push(	<li key='jump-to-last'><a href="#" onClick={() => this.setPage(totalNumberOfPages)}>Jump to Last</a></li> );
 		}
 
 		return(

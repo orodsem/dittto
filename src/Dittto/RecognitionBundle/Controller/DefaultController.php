@@ -83,7 +83,7 @@ class DefaultController extends Controller
         return $this->render('DitttoRecognitionBundle:Default:recognition.html.twig',
             array(                
                 'receivedRecognition' => json_encode($receivedRecognition),
-                'recognitionReceivedCount' => $totalReceivedByUser,
+                'receivedRecognitionCount' => $totalReceivedByUser,
                 'itemsPerPage' => $itemsPerPage,
                 'currentPage' => 1
             )

@@ -7,3 +7,12 @@ export function goToNextPage(page, currentPage){
 		}
 	};
 }
+
+export function setPage(page){
+	return {
+		type: 'PAGINATION_SET_PAGE',
+		payload: {
+			page
+		}
+	};
+}
