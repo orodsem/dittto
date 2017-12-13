@@ -105,7 +105,8 @@ class DefaultController extends Controller
         /** @var RecognitionReceivedRepository $recognitionReceivedRepo */
         $recognitionReceivedRepo = $em->getRepository('DitttoRecognitionBundle:RecognitionReceived');
         $totalReceivedByUser = $recognitionReceivedRepo->getRecognitionReceivedByUserId($user->getId());
-        $receivedRecognition = $recognitionReceivedRepo->getRecognitionReceivedListByUserId($user->getId(), $offset, $itemsPerPage);
+        $receivedRecognitionRaw = $recognitionReceivedRepo->getRecognitionReceivedListByUserId($user->getId(), $offset, $itemsPerPage);
+        $receivedRecognition = $this->generateRecognitionsReceived($receivedRecognitionRaw);
 
         $data = [
             'currentPage' => $page,
