@@ -6,3 +6,20 @@ INSERT INTO `dittto_user` (`id`, `username`, `username_canonical`, `email`, `ema
 -- add some criteria
 INSERT INTO `dittto_criteria` (`title`, `description`, `point`, `image`) VALUES ('red', 'red', '0', 'dev/img/criteria/red.png');
 INSERT INTO `dittto_criteria` (`title`, `description`, `point`, `image`) VALUES ('purple', 'red', '0', 'dev/img/criteria/purple.png');
+
+-- add Dittto School
+INSERT INTO `dittto_school` (`name`) VALUES ('Dittto');
+
+-- add a Campus
+INSERT INTO `dittto_campus` (`school_id`, `name`) VALUES ('1', 'Melbourne');
+
+-- add some Year Levels
+INSERT INTO `dittto_year_level` (`campus_id`, `name`) VALUES ('1', 'Year 1');
+INSERT INTO `dittto_year_level` (`campus_id`, `name`) VALUES ('1', 'Year 2');
+
+-- add some Groups (Classes)
+INSERT INTO `dittto_group` (`year_level_id`, `name`) VALUES ('1', 'Class 1A');
+INSERT INTO `dittto_group` (`year_level_id`, `name`) VALUES ('1', 'Class 1B');
+INSERT INTO `dittto_group` (`year_level_id`, `name`) VALUES ('2', 'Class 2A');
+INSERT INTO `dittto_group` (`year_level_id`, `name`) VALUES ('2', 'Class 2B');
+

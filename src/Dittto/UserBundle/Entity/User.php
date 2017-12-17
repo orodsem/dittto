@@ -49,14 +49,14 @@ class User extends BaseUser
     protected $recognitions;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserSchoolClasses", mappedBy="users",cascade={"persist","remove"} )
+     * @ORM\ManyToOne(targetEntity="\Dittto\SchoolBundle\Entity\Group")
+     * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      */
-    protected $schoolClasses;
+    private $group;
 
     public function __construct()
     {
         $this->recognitions = new ArrayCollection();
-        $this->schoolClasses = new ArrayCollection();
         parent::__construct();
     }
 
@@ -132,15 +132,6 @@ class User extends BaseUser
     }
 
     /**
-     * returns a list of classes that user enrolled to/taught to
-     * @return mixed
-     */
-    public function getSchoolClasses()
-    {
-        return $this->schoolClasses;
-    }
-
-    /**
      * @return mixed
      */
     public function getBirthday()
@@ -154,5 +145,21 @@ class User extends BaseUser
     public function setBirthday($birthday)
     {
         $this->birthday = $birthday;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * @param mixed $group
+     */
+    public function setGroup($group)
+    {
+        $this->group = $group;
     }
 }
