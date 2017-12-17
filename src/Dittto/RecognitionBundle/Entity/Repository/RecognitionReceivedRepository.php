@@ -32,7 +32,9 @@ class RecognitionReceivedRepository extends EntityRepository
      * returns total number of recognitions received by the given user
      *
      * @param $userId
-     * @return int|mixed
+     * @param int $offset
+     * @param int $limit
+     * @return array
      */
     public function getRecognitionReceivedListByUserId($userId, $offset = 0, $limit = 5)
     {

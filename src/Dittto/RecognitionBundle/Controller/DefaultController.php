@@ -48,6 +48,7 @@ class DefaultController extends Controller
         /** @var RecognitionRepository $recognitionRepo */
         $recognitionRepo = $em->getRepository('DitttoRecognitionBundle:Recognition');
         $totalSentByUser = $recognitionRepo->getTotalRecognitionSentByUserId($user->getId());
+        $rankDetails = $recognitionRepo->getUserReceivedRank($user->getId());
 
         // displayed in charts
         $userVsTotal = array(
@@ -56,10 +57,20 @@ class DefaultController extends Controller
             'totalRecognitions' => $totalRecognitions,
             );
 
+        // TODO: this should come from client table and ideally configurable
+        $totalRecognitionsGoal = 10;
+
+        $sentPercentage = ($totalSentByUser * 100) / $totalRecognitionsGoal;
+
         return $this->render('DitttoRecognitionBundle:Default:dashboard.html.twig',
             array(
                 'userVsTotal' => json_encode($userVsTotal),
-                'notRepliedRecognitionDetails' => $newRecognitionDetails
+                'notRepliedRecognitionDetails' => $newRecognitionDetails,
+                'totalSentByUser' => $totalSentByUser,
+                'totalReceivedByUser' => $totalReceivedByUser,
+                'totalRecognitionsGoal' => $totalRecognitionsGoal,
+                'rankDetails' => $rankDetails,
+                'sentPercentage' => $sentPercentage . '%'
                 )
         );
     }
@@ -248,7 +259,7 @@ class DefaultController extends Controller
                 }
 
                 $newRecognitionDetails[] = array(
-                    'criteriaId' => 3, // TODO: at the moment this is the only like. This should be fetched from DB
+                    'criteriaId' => 3, // TODO: at the moment this is the only response (like). This should be fetched from DB
                     'senderId' => $sender->getId(),
                     'message' => $recognitionMessage,
                     'hasReplied' => false,
