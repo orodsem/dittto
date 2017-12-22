@@ -56,7 +56,7 @@ class YearLevel
     }
 
     /**
-     * @return mixed
+     * @return Campus
      */
     public function getCampus()
     {

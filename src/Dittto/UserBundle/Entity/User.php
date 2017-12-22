@@ -3,6 +3,7 @@
 namespace Dittto\UserBundle\Entity;
 
 
+use Dittto\SchoolBundle\Entity\Group;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -148,7 +149,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return mixed
+     * @return Group
      */
     public function getGroup()
     {

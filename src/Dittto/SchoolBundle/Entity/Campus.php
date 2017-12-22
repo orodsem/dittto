@@ -32,6 +32,12 @@ class Campus
     private $school;
 
     /**
+     * @ORM\ManyToOne(targetEntity="CampusConfig")
+     * @ORM\JoinColumn(name="campus_config_id", referencedColumnName="id")
+     */
+    private $campusConfig;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -56,7 +62,7 @@ class Campus
     }
 
     /**
-     * @return mixed
+     * @return School
      */
     public function getSchool()
     {
@@ -69,5 +75,21 @@ class Campus
     public function setSchool($school)
     {
         $this->school = $school;
+    }
+
+    /**
+     * @return CampusConfig
+     */
+    public function getCampusConfig()
+    {
+        return $this->campusConfig;
+    }
+
+    /**
+     * @param mixed $campusConfig
+     */
+    public function setCampusConfig($campusConfig)
+    {
+        $this->campusConfig = $campusConfig;
     }
 }

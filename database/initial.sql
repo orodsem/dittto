@@ -11,7 +11,10 @@ INSERT INTO `dittto_criteria` (`title`, `description`, `point`, `image`) VALUES 
 INSERT INTO `dittto_school` (`name`) VALUES ('Dittto');
 
 -- add a Campus
-INSERT INTO `dittto_campus` (`school_id`, `name`) VALUES ('1', 'Melbourne');
+INSERT INTO `dittto_campus` (`school_id`, `name`, `campus_config_id`) VALUES ('1', 'Melbourne', 1);
+
+-- add Campus Config
+INSERT INTO `dittto_campus_config` (`recognition_level`) VALUES ('1');
 
 -- add some Year Levels
 INSERT INTO `dittto_year_level` (`campus_id`, `name`) VALUES ('1', 'Year 1');

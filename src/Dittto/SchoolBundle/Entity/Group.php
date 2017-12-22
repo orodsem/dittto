@@ -55,7 +55,7 @@ class Group
     }
 
     /**
-     * @return mixed
+     * @return YearLevel
      */
     public function getYearLevel()
     {
