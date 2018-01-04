@@ -210,7 +210,11 @@ a.user-info-top{
 	margin-bottom: 20px;
 }
 
-
+.page-content {
+	background: #fdfdfd;
+	padding: 20px 15px;
+	border-radius: 3px;
+}
 
 /* Media Queries */
 
