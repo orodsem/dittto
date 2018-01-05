@@ -8,18 +8,23 @@
 {% endblock %}
 
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-    
+
     <div class="container login-page">
-        
+
         <div class="dittto-logo-container">
             {# Dittto Logo #}
             <h2 class="dittto-logo">Dittto</h2>
         </div>
 
         <div class="login-form-wrapper">
+
+            {% if error %}
+            <div class="login-errors">
+                <div class="alert alert-danger" role="alert">
+                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>                
+                </div>
+            </div>
+            {% endif %}
 
             <form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
                 <h2 class="form-signin-heading">Please sign in</h2>
