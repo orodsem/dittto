@@ -1,3 +1,33 @@
+.dashboard-graphs-container{
+    position:relative;
+    padding-right:90px;
+    padding-left:0
+}
+
+.dashboard-page .side-info{
+    margin: 0 auto;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    right: 3px;
+    max-width: 80px;
+    -webkit-box-shadow: 0px 0px 7px 0px rgba(50, 50, 50, 0.35);
+    -moz-box-shadow:    0px 0px 7px 0px rgba(50, 50, 50, 0.35);
+    box-shadow:         0px 0px 7px 0px rgba(50, 50, 50, 0.35);
+}
+
+.dashboard-page .info-box{                
+    text-align: center;
+    line-height: 18px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.dashboard-page .info-box img{
+    width:35px;
+    height:35px;
+}
+
 #piechart-received,
 #piechart-sent {
     background: #fff;
