@@ -32,7 +32,7 @@ class RecognitionRepository extends EntityRepository
      * @param $userId
      * @return array
      */
-    public function getUserReceivedRank($userId)
+    public function getUserSentRankNow($userId)
     {
         $query = 'SELECT * FROM (
                       SELECT s.*, @rank := @rank + 1 rank FROM (
@@ -77,5 +77,60 @@ class RecognitionRepository extends EntityRepository
         }
 
         return $rankDetails;
+    }
+
+    public function getUserSentRankLastMonth($userId)
+    {
+        $lastMonthStart = date("Y-n-d", strtotime("first day of previous month")) . ' 00:00:00';
+        $lastMonthEnd = date("Y-n-d", strtotime("last day of previous month")) . ' 23:59:59';
+
+        $query = 'SELECT * FROM (
+                      SELECT s.*, @rank := @rank + 1 rank FROM (
+                        SELECT sender_id, count(*) TotalPoints FROM dittto_recognition
+                        WHERE sent_at BETWEEN "' . $lastMonthStart . '" AND "' . $lastMonthEnd .'"
+                        GROUP BY sender_id
+                      ) s, (SELECT @rank := 0) init
+                      ORDER BY TotalPoints DESC
+                    ) r
+                    WHERE sender_id = ' . $userId;
+
+        $rank = $this->getEntityManager()->getConnection()->executeQuery($query)->fetchAll();
+
+        $rankDetails = array();
+
+        if (count($rank) != 1) {
+            // users haven't recognised anyone yet
+            $rankDetails['rank'] = '';
+
+            return $rankDetails;
+        }
+
+        $rankDetails['rank'] = $rank[0]['rank'];
+
+        return $rankDetails;
+    }
+
+    public function getRankChanegedSinceLastMonth($userId)
+    {
+        $rankDetailsNow = $this->getUserSentRankNow($userId);
+        $rankDetailsLastMonth = $this->getUserSentRankLastMonth($userId);
+
+        $rankNow = (int)$rankDetailsNow['rank'];
+        $rankLastMonth = (int)$rankDetailsLastMonth['rank'];
+
+        $rankChanged = $rankLastMonth - $rankNow;
+        if ($rankChanged > 0) {
+            $rankChangedIcon = 'glyphicon glyphicon-chevron-up text-success';
+        } else if ($rankChanged < 0) {
+            $rankChangedIcon = 'glyphicon glyphicon-chevron-down text-danger';
+        } else {
+            $rankChangedIcon = 'glyphicon glyphicon-chevron-right text-muted';
+        }
+
+        $rankChangedDetails = array();
+        $rankChangedDetails['changed'] = $rankChanged;
+        $rankChangedDetails['icon'] = $rankChangedIcon;
+
+        return $rankChangedDetails;
     }
 }

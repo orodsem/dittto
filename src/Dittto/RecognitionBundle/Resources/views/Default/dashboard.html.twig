@@ -101,60 +101,31 @@
                                 </div>
                             </div>    
                         </div>                        
-                            
-                        <style>
-                                
-                            .side-info{
-                                margin: 0 auto;
-                                font-size: 12px;
-                                position: absolute;
-                                top: 0;
-                                right: 3px;
-                                max-width: 80px;
-                                -webkit-box-shadow: 0px 0px 7px 0px rgba(50, 50, 50, 0.35);
-                                -moz-box-shadow:    0px 0px 7px 0px rgba(50, 50, 50, 0.35);
-                                box-shadow:         0px 0px 7px 0px rgba(50, 50, 50, 0.35);
-                            }
-
-                            .info-box{                
-                                text-align: center;
-                                line-height: 18px;
-                                padding: 10px;
-                                margin-bottom: 15px;
-                            }
-
-                            .info-box img{
-                                width:35px;
-                                height:35px;
-                            }
-
-                        </style>
 
                         <div class="side-info">
 
                             <div class="info-box rank-box">
-                                <h3>Your Rank</h3>
+                                <strong>Your Rank</strong>
                                 <div>
-                                    {{ rankDetails['rank'] }}
+                                    {{ rankCurrentDetails['rank'] }}
                                 </div>
                                 <div>
-                                    <img class="rank-img" src="{{ asset( rankDetails['imagePath']) }}" alt="">
-                                    <p>{{ rankDetails['rankMessage'] }}</p>
+                                    <img class="rank-img" src="{{ asset( rankCurrentDetails['imagePath']) }}" alt="">
+                                    <p>{{ rankCurrentDetails['rankMessage'] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="info-box">
+                                <strong>Since last month</strong>
+                                <div>
+                                    <h1 class="{{ rankChanged['icon'] }}"></h1>
                                 </div>
                             </div>
 
                             {#<div class="info-box">#}
                                 {#<h3>Your Info</h3>#}
                                 {#<div>#}
-                                    {#<img class="rank-img" src="{{ asset( rankDetails['imagePath']) }}" alt="">#}
-                                    {#<p>Other info here..</p>#}
-                                {#</div>#}
-                            {#</div>#}
-
-                            {#<div class="info-box">#}
-                                {#<h3>Your Info</h3>#}
-                                {#<div>#}
-                                    {#<img class="rank-img" src="{{ asset( rankDetails['imagePath']) }}" alt="">#}
+                                    {#<img class="rank-img" src="{{ asset( rankCurrentDetails['imagePath']) }}" alt="">#}
                                     {#<p>Other info here..</p>#}
                                 {#</div>#}
                             {#</div>#}
