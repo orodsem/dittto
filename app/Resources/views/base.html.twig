@@ -15,10 +15,11 @@
         <link rel="stylesheet" href="{{ asset( 'assets/css/reset.css') }}" />
         <link rel="stylesheet" href="{{ asset( 'assets/css/dittto.css') }}" />
         
+        {% block stylesheets %}{% endblock %}
+
         {# TODO: css file and other related file related to each client dynamically generate here #}
         <link rel="stylesheet" href="{{ asset( app.environment  ~ '/css/style.css') }}" />
 
-        {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset(app.environment ~ '/img/favicon.ico') }}" />
     </head>
     <body>
