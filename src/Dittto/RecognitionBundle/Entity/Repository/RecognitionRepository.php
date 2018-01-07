@@ -79,6 +79,12 @@ class RecognitionRepository extends EntityRepository
         return $rankDetails;
     }
 
+    /**
+     * returns last month rank
+     *
+     * @param $userId
+     * @return array
+     */
     public function getUserSentRankLastMonth($userId)
     {
         $lastMonthStart = date("Y-n-d", strtotime("first day of previous month")) . ' 00:00:00';
@@ -110,7 +116,13 @@ class RecognitionRepository extends EntityRepository
         return $rankDetails;
     }
 
-    public function getRankChanegedSinceLastMonth($userId)
+    /**
+     * Compare current rank with last month
+     *
+     * @param $userId
+     * @return array
+     */
+    public function getRankChangedSinceLastMonth($userId)
     {
         $rankDetailsNow = $this->getUserSentRankNow($userId);
         $rankDetailsLastMonth = $this->getUserSentRankLastMonth($userId);

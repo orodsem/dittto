@@ -49,7 +49,7 @@ class DefaultController extends Controller
         $recognitionRepo = $em->getRepository('DitttoRecognitionBundle:Recognition');
         $totalSentByUser = $recognitionRepo->getTotalRecognitionSentByUserId($user->getId());
         $rankCurrentDetails = $recognitionRepo->getUserSentRankNow($user->getId());
-        $rankChanged = $recognitionRepo->getRankChanegedSinceLastMonth($user->getId());
+        $rankChanged = $recognitionRepo->getRankChangedSinceLastMonth($user->getId());
 
         // displayed in charts
         $userVsTotal = array(
