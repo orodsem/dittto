@@ -105,7 +105,7 @@
                         <div class="side-info">
 
                             <div class="info-box rank-box">
-                                <strong>Your Rank</strong>
+                                <div class="strong">Your Rank</div>
                                 <div>
                                     {{ rankCurrentDetails['rank'] }}
                                 </div>
@@ -116,9 +116,9 @@
                             </div>
 
                             <div class="info-box">
-                                <strong>Since last month</strong>
+                                <div class="strong">Since last month</div>
                                 <div>
-                                    <h1 class="{{ rankChanged['icon'] }}"></h1>
+                                    <span class="{{ rankChanged['icon'] }} strong"></span>
                                 </div>
                             </div>
 
