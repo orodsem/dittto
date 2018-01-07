@@ -64,12 +64,12 @@
                                 {# First row #}
                                 <div class="row">
                                     {# Progress bar #}
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
                                         <h3 class="chart-header">Total Sent</h3>
                                         <div class="total-recognition-box col-md-12">
                                             <div class="row">
-                                                <div class="col-md-6 gel-long-primer">Total Sent</div>
-                                                <div class="col-md-6 percentage-bar-chart__sub-heading gel-long-primer">Total</div>
+                                                <div class="col-md-12 gel-long-primer">Total Sent</div>
+                                                <div class="col-md-12 percentage-bar-chart__sub-heading gel-long-primer">Total</div>
                                             </div>
 
                                             <div class="percentage-bar-chart__chart-wrapper">
@@ -85,25 +85,8 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    {# Rank box #}
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <h3 class="chart-header">Your Rank</h3>
-                                        <div class="total-recognition-box">
-                                            <div class="row">
-                                                <div class="col-md-2 col-sm-6 col-xs-12 strong text-center rank-box-text">
-                                                    {{ rankDetails['rank'] }}
-                                                </div>
-                                                <div class="col-md-2 col-sm-6 col-xs-12 text-center">
-                                                    <img class="rank-img" src="{{ asset( rankDetails['imagePath']) }}" alt="">
-                                                </div>
-                                                <div class="col-md-8 col-sm-6 col-xs-12 strong text-center rank-box-text">
-                                                    {{ rankDetails['rankMessage'] }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
+
 
                                 {# Charts #}
                                 <div class="row">
@@ -157,25 +140,25 @@
                                 <div>
                                     <img class="rank-img" src="{{ asset( rankDetails['imagePath']) }}" alt="">
                                     <p>{{ rankDetails['rankMessage'] }}</p>
-                                </div> 
-                            </div>
-                            
-                            <div class="info-box">
-                                <h3>Your Info</h3>
-                                <div>
-                                    <img class="rank-img" src="{{ asset( rankDetails['imagePath']) }}" alt="">
-                                    <p>Other info here..</p>
-                                </div> 
+                                </div>
                             </div>
 
-                            <div class="info-box">
-                                <h3>Your Info</h3>
-                                <div>
-                                    <img class="rank-img" src="{{ asset( rankDetails['imagePath']) }}" alt="">
-                                    <p>Other info here..</p>
-                                </div> 
-                            </div>
-                            
+                            {#<div class="info-box">#}
+                                {#<h3>Your Info</h3>#}
+                                {#<div>#}
+                                    {#<img class="rank-img" src="{{ asset( rankDetails['imagePath']) }}" alt="">#}
+                                    {#<p>Other info here..</p>#}
+                                {#</div>#}
+                            {#</div>#}
+
+                            {#<div class="info-box">#}
+                                {#<h3>Your Info</h3>#}
+                                {#<div>#}
+                                    {#<img class="rank-img" src="{{ asset( rankDetails['imagePath']) }}" alt="">#}
+                                    {#<p>Other info here..</p>#}
+                                {#</div>#}
+                            {#</div>#}
+
                         </div>
                     </div>
 
