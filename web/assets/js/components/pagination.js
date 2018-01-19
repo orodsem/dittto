@@ -18,10 +18,10 @@ class Pagination extends React.Component {
 	render(){
 
 		console.log(this.props, 'PROPS');
-
+		const defaultNumOfPagesToDisplay = 3;
 		let totalNumberOfPages = Math.ceil(this.props.recogReceivedCount/this.props.itemsPerPage);
-		let currentPage = parseInt(this.props.currentPage);
-		let numOfPagesToDisplay = 3;
+		let currentPage = parseInt(this.props.currentPage);		
+		let numOfPagesToDisplay = (defaultNumOfPagesToDisplay > totalNumberOfPages) ? totalNumberOfPages : defaultNumOfPagesToDisplay;
 		let pages = [];
 		let page = 1;
 		let activeClass = '';
