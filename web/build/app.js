@@ -23130,7 +23130,7 @@ var Pagination = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /*
 						{ href: '#', onClick: function onClick() {
 								return _this2.setPage(1);
 							} },
-						'Jump to first'
+						'<<'
 					)
 				));
 				pages.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -23141,7 +23141,7 @@ var Pagination = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /*
 						{ href: '#', onClick: function onClick() {
 								return _this2.setPage(currentPage - 1);
 							} },
-						'Prev'
+						'<'
 					)
 				));
 			}
@@ -23210,7 +23210,7 @@ var Pagination = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /*
 						{ href: '#', onClick: function onClick() {
 								return _this2.setPage(currentPage + 1);
 							} },
-						'Next'
+						'>'
 					)
 				));
 				pages.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -23221,7 +23221,7 @@ var Pagination = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /*
 						{ href: '#', onClick: function onClick() {
 								return _this2.setPage(totalNumberOfPages);
 							} },
-						'Jump to Last'
+						'>>'
 					)
 				));
 			}
