@@ -17,6 +17,6 @@
 /vendor/
 /web/bower_components/*
 /web/bundles/
-.idea9
+.idea*
 /node_modules/*
 npm-debug.log

@@ -48,7 +48,8 @@ class DefaultController extends Controller
         /** @var RecognitionRepository $recognitionRepo */
         $recognitionRepo = $em->getRepository('DitttoRecognitionBundle:Recognition');
         $totalSentByUser = $recognitionRepo->getTotalRecognitionSentByUserId($user->getId());
-        $rankDetails = $recognitionRepo->getUserReceivedRank($user->getId());
+        $rankCurrentDetails = $recognitionRepo->getUserSentRankNow($user->getId());
+        $rankChanged = $recognitionRepo->getRankChangedSinceLastMonth($user->getId());
 
         // displayed in charts
         $userVsTotal = array(
@@ -69,7 +70,8 @@ class DefaultController extends Controller
                 'totalSentByUser' => $totalSentByUser,
                 'totalReceivedByUser' => $totalReceivedByUser,
                 'totalRecognitionsGoal' => $totalRecognitionsGoal,
-                'rankDetails' => $rankDetails,
+                'rankCurrentDetails' => $rankCurrentDetails,
+                'rankChanged' => $rankChanged,
                 'sentPercentage' => $sentPercentage . '%'
                 )
         );

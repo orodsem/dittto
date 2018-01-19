@@ -1,30 +1,29 @@
 <?php
+
 namespace Dittto\SchoolBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+
 /**
- * @ORM\Entity
- * @ORM\Table(name="dittto_school_class")
- * @ORM\Entity(repositoryClass="Dittto\SchoolBundle\Entity\Repository\SchoolClassRepository")
+ * School
+ *
+ * @ORM\Table(name="dittto_school")
+ * @ORM\Entity(repositoryClass="Dittto\UserBundle\Entity\SchoolRepository")
  */
-class SchoolClass
+class School
 {
     /**
-     * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=40, nullable=false)
+     * @ORM\Column(name="name", type="string", length=255)
      */
-    protected $name;
-
-    /**
-     * @ORM\OneToMany(targetEntity="\Dittto\UserBundle\Entity\UserSchoolClasses", mappedBy="schoolClasses",cascade={"persist","remove"} )
-     */
-    protected $users;
+    private $name;
 
     /**
      * @return mixed

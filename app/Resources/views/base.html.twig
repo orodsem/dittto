@@ -15,10 +15,11 @@
         <link rel="stylesheet" href="{{ asset( 'assets/css/reset.css') }}" />
         <link rel="stylesheet" href="{{ asset( 'assets/css/dittto.css') }}" />
         
+        {% block stylesheets %}{% endblock %}
+
         {# TODO: css file and other related file related to each client dynamically generate here #}
         <link rel="stylesheet" href="{{ asset( app.environment  ~ '/css/style.css') }}" />
 
-        {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset(app.environment ~ '/img/favicon.ico') }}" />
     </head>
     <body>
@@ -32,12 +33,12 @@
             <a href="javascript:void(0)" class="closebtn close-sidebar-btn">&times;</a>
             <a href="{{ path('dittto_recognition_dashboard') }}"><span class="glyphicon glyphicon-dashboard open-sidebar-btn"></span> Dashboard</a>
             <a href="{{ path('dittto_recognition_send') }}"><span class="glyphicon glyphicon-thumbs-up open-sidebar-btn"></span> Recognise</a>
-            <a href="{{ path('dittto_user_profile') }}"><span class="glyphicon glyphicon-user open-sidebar-btn"></span> My Profile</a>
-            <a href="#"><span class="glyphicon glyphicon-cog open-sidebar-btn"></span> Settings</a>
-            <a href="#"><span class="glyphicon glyphicon-th-large open-sidebar-btn"></span> Programs</a>
             <a href="{{ path('dittto_recognition_report_received') }}"><span class="glyphicon glyphicon-list-alt open-sidebar-btn"></span> Reports</a>
-            <a href="#"><span class="glyphicon glyphicon-envelope open-sidebar-btn"></span> Emails</a>
-            <a href="#"><span class="glyphicon glyphicon-book open-sidebar-btn"></span> Extra</a>
+            <a href="{{ path('dittto_user_profile') }}"><span class="glyphicon glyphicon-user open-sidebar-btn"></span> My Profile</a>
+            <a href="{{ path('dittto_user_update_password') }}"><span class="glyphicon glyphicon-lock open-sidebar-btn"></span> Password</a>
+            {#<a href="#"><span class="glyphicon glyphicon-cog open-sidebar-btn"></span> Settings</a>#}
+            {#<a href="#"><span class="glyphicon glyphicon-envelope open-sidebar-btn"></span> Emails</a>#}
+            {#<a href="#"><span class="glyphicon glyphicon-book open-sidebar-btn"></span> Extra</a>#}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <a href="{{ logout_path(key = null) }}"><span class="glyphicon glyphicon-log-out open-sidebar-btn"></span> Logout</a>
             {% endif %}
