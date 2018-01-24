@@ -5,3 +5,7 @@
 dittto_user_profile:
     path: /user/profile
     defaults: { _controller: DitttoUserBundle:Default:profile }
+
+dittto_user_update_password:
+    path: /user/password
+    defaults: { _controller: DitttoUserBundle:Default:updatePassword }

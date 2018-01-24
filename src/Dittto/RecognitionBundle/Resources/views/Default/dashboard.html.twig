@@ -9,110 +9,154 @@
 {% block body %}
 
     <h1 class="page-header-1">Dashboard</h1>
+    
+    <div class="container page-content dashboard-page">
+        <div class="row">
+            <div class="col-md-12">
+                {% if notRepliedRecognitionDetails is not empty %}
+                    <input type="hidden" id="total-recognitions" value="{{ notRepliedRecognitionDetails|length }}"/>
+                    <!-- modal to display recognitions that should be replied back -->
+                    <div class="modal fade" id="replyBackModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title">You recently recognised</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {% for key,recognition in notRepliedRecognitionDetails %}
+                                        <div id="recognition-content-{{ recognition.criteriaId }}-{{ key }}"
+                                             class="recognition-modal-content small">
+                                            {{ recognition.message|raw }}
 
-    {% if notRepliedRecognitionDetails is not empty %}
-        <input type="hidden" id="total-recognitions" value="{{ notRepliedRecognitionDetails|length }}"/>
-        <!-- modal to display recognitions that should be replied back -->
-        <div class="modal fade" id="replyBackModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">You recently recognised</h4>
-                    </div>
-                    <div class="modal-body">
-                        {% for key,recognition in notRepliedRecognitionDetails %}
-                            <div id="recognition-content-{{ recognition.criteriaId }}-{{ key }}"
-                                 class="recognition-modal-content small">
-                                {{ recognition.message|raw }}
+                                            {% if recognition.responseType == 0 %}
+                                            <a
+                                                    id="recognition-icon-{{ recognition.criteriaId }}-{{ key }}"
+                                                    onclick="replyBack({{ recognition.recognitionId }}, {{ recognition.criteriaId }}, {{ recognition.senderId }}, {{ key }});">
+                                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                            </a>
+                                            {% endif %}
+                                            {# spinning wheel for each reply #}
+                                            <span id="spinning-{{ recognition.criteriaId }}-{{ key }}" class="hide">
+                                                <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+                                            </span>
 
-                                {% if recognition.responseType == 0 %}
-                                <a
-                                        id="recognition-icon-{{ recognition.criteriaId }}-{{ key }}"
-                                        onclick="replyBack({{ recognition.recognitionId }}, {{ recognition.criteriaId }}, {{ recognition.senderId }}, {{ key }});">
-                                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                                </a>
-                                {% endif %}
-                                {# spinning wheel for each reply #}
-                                <span id="spinning-{{ recognition.criteriaId }}-{{ key }}" class="hide">
-                                    <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
-                                </span>
+                                            <span id="icon-success-{{ recognition.criteriaId }}-{{ key }}"
+                                                    class="glyphicon glyphicon-ok icon-success hide"></span>
+                                            <hr>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                {% endif %}
+                
+                <div class="container-fluid dashboard-graphs-container">
+                    
+                    <div class="row">
+                        <div class="col-md-10 col-xs-10">
+                            {# Rank details #}
+                            <div class="container-fluid">
+                                {# First row #}
+                                <div class="row">
+                                    {# Progress bar #}
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <h3 class="chart-header">Total Sent</h3>
+                                        <div class="total-recognition-box col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12 gel-long-primer"></div>
+                                                <div class="col-md-12 percentage-bar-chart__sub-heading gel-long-primer"></div>
+                                            </div>
 
-                                <span id="icon-success-{{ recognition.criteriaId }}-{{ key }}"
-                                        class="glyphicon glyphicon-ok icon-success hide"></span>
-                                <hr>
+                                            <div class="percentage-bar-chart__chart-wrapper">
+                                                <span class="percentage-bar-chart__percentage gel-pica">{{ sentPercentage }}</span>
+                                                <div class="percentage-bar-chart__chart">
+                                                    <span class="percentage-bar-chart__total-bar">
+                                                        <span class="percentage-bar-chart__percentage-bar" style="width:{{ sentPercentage }};">
+                                                            <span class="percentage-bar-chart__figure gel-minion">{{ totalSentByUser }}</span>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <span class="percentage-bar-chart__total gel-pica shots-total ">{{ totalRecognitionsGoal }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {# Charts #}
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <h3 class="chart-header">Recognition Sent</h3>
+                                        <div id="piechart-sent"></div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <h3 class="chart-header">Recognition Received</h3>
+                                        <div id="piechart-received"></div>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+
+                        <div class="col-md-2 col-xs-2">
+                            <div class="info-box rank-box">
+                                <div class="strong">Your Rank</div>
+                                <div>
+                                    {{ rankCurrentDetails['rank'] }}
+                                </div>
+                                <div>
+                                    <img class="rank-img" src="{{ asset( rankCurrentDetails['imagePath']) }}" alt="">
+                                    <p>{{ rankCurrentDetails['rankMessage'] }}</p>
+                                </div>
                             </div>
-                        {% endfor %}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-    {% endif %}
 
-    {# Rank details #}
-    <div class="container">
-        {# First row #}
-        <div class="row">
-            {# Progress bar #}
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <h3 class="chart-header">Total Sent</h3>
-                <div class="total-recognition-box col-md-12">
-                    <div class="row">
-                        <div class="col-md-6 gel-long-primer">Total Sent</div>
-                        <div class="col-md-6 percentage-bar-chart__sub-heading gel-long-primer">Total</div>
-                    </div>
-
-                    <div class="percentage-bar-chart__chart-wrapper">
-                        <span class="percentage-bar-chart__percentage gel-pica">{{ sentPercentage }}</span>
-                        <div class="percentage-bar-chart__chart">
-                            <span class="percentage-bar-chart__total-bar">
-                                <span class="percentage-bar-chart__percentage-bar" style="width:{{ sentPercentage }};">
-                                    <span class="percentage-bar-chart__figure gel-minion">{{ totalSentByUser }}</span>
-                                </span>
-                            </span>
+                            <div class="info-box">
+                                <div class="strong">Since last month</div>
+                                <div>
+                                    <span class="{{ rankChanged['icon'] }} strong"></span>
+                                </div>
+                            </div>
                         </div>
-                        <span class="percentage-bar-chart__total gel-pica shots-total ">{{ totalRecognitionsGoal }}</span>
+
+                        {#<div class="side-info">#}
+                            {#<div class="info-box rank-box">#}
+                                {#<div class="strong">Your Rank</div>#}
+                                {#<div>#}
+                                    {#{{ rankCurrentDetails['rank'] }}#}
+                                {#</div>#}
+                                {#<div>#}
+                                    {#<img class="rank-img" src="{{ asset( rankCurrentDetails['imagePath']) }}" alt="">#}
+                                    {#<p>{{ rankCurrentDetails['rankMessage'] }}</p>#}
+                                {#</div>#}
+                            {#</div>#}
+
+                            {#<div class="info-box">#}
+                                {#<div class="strong">Since last month</div>#}
+                                {#<div>#}
+                                    {#<span class="{{ rankChanged['icon'] }} strong"></span>#}
+                                {#</div>#}
+                            {#</div>#}
+
+                            {#<div class="info-box">#}
+                                {#<h3>Your Info</h3>#}
+                                {#<div>#}
+                                    {#<img class="rank-img" src="{{ asset( rankCurrentDetails['imagePath']) }}" alt="">#}
+                                    {#<p>Other info here..</p>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
                     </div>
+
                 </div>
-            </div>
 
-            {# Rank box #}
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <h3 class="chart-header">Your Rank</h3>
-                <div class="total-recognition-box">
-                    <div class="row">
-                        <div class="col-md-2 col-sm-6 col-xs-12 strong text-center rank-box-text">
-                            {{ rankDetails['rank'] }}
-                        </div>
-                        <div class="col-md-2 col-sm-6 col-xs-12 text-center">
-                            <img class="rank-img" src="{{ asset( rankDetails['imagePath']) }}" alt="">
-                        </div>
-                        <div class="col-md-8 col-sm-6 col-xs-12 strong text-center rank-box-text">
-                            {{ rankDetails['rankMessage'] }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {# Charts #}
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <h3 class="chart-header">Recognition Sent</h3>
-                <div id="piechart-sent"></div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <h3 class="chart-header">Recognition Received</h3>
-                <div id="piechart-received"></div>
+                <input type="hidden" id="user-vs-total-received" value="{{ userVsTotal }}">
             </div>
         </div>
     </div>
-
-    <input type="hidden" id="user-vs-total-received" value="{{ userVsTotal }}">
-
 {% endblock %}
 
 {% block javascripts %}

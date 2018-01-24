@@ -7,37 +7,22 @@
 {% endblock %}
 
 {% block body %}
-    <h1 class="page-header-1">Received Recognition</h1>
-    <div id="recognition-listing"></div>
+    <h1 class="page-header-1">Dittto Received</h1>
+    <div
+            id="recognition-listing"
+            class="container page-content"
+            data-recog-received="{{ receivedRecognition }}"
+            data-recog-received-count="{{ receivedRecognitionCount }}"
+            data-items-per-page="{{ itemsPerPage }}"
+            data-current-page="{{ currentPage }}"
+    ></div>
 {% endblock %}
 
 {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/15.6.1/react-dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
-    {# 
-        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
-    #}
 
     <script type="text/babel" src="{{ asset('assets/js/react-components/recognition/recognition-received.component.js') }}"></script>
-    
-    <script type="text/babel">
 
-        let receivedRecognition = JSON.parse(JSON.stringify({{receivedRecognition | raw}}));
-        let recognitionReceivedCount = {{recognitionReceivedCount}};
-        let itemsPerPage = {{itemsPerPage}};
-        let currentPage = {{currentPage}};
-
-        console.log(receivedRecognition);
-
-        ReactDOM.render(
-            <RecognitionListing 
-                receivedRecognition={receivedRecognition}
-                recognitionReceivedCount={recognitionReceivedCount}
-                itemsPerPage={itemsPerPage}
-                currentPage={currentPage}/>,
-            document.getElementById('recognition-listing')
-        );
-    </script>
-    
 {% endblock %}

@@ -210,7 +210,14 @@ a.user-info-top{
 	margin-bottom: 20px;
 }
 
-
+.page-content {
+	background: #fdfdfd;
+	padding: 20px 15px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0px 0px 3px 0px rgba(50, 50, 50, 0.35);
+  -moz-box-shadow:    0px 0px 3px 0px rgba(50, 50, 50, 0.35);
+  box-shadow:         0px 0px 3px 0px rgba(50, 50, 50, 0.35);
+}
 
 /* Media Queries */
 
