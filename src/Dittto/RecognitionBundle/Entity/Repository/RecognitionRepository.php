@@ -130,17 +130,22 @@ class RecognitionRepository extends EntityRepository
         $rankNow = (int)$rankDetailsNow['rank'];
         $rankLastMonth = (int)$rankDetailsLastMonth['rank'];
 
-        $rankChanged = $rankLastMonth - $rankNow;
-        if ($rankChanged > 0) {
+        if ($rankNow !== 0 && $rankLastMonth === 0) {
+            // rank changed now, but there was no rank (dittto) in last month, so considered as an improvement
             $rankChangedIcon = 'glyphicon glyphicon-chevron-up text-success';
-        } else if ($rankChanged < 0) {
+        } else if ($rankNow > $rankLastMonth) {
+            // rank went up
+            $rankChangedIcon = 'glyphicon glyphicon-chevron-down text-danger';
+        } else if ($rankNow < $rankLastMonth) {
+            // rank went down
             $rankChangedIcon = 'glyphicon glyphicon-chevron-down text-danger';
         } else {
+            // rank not changed
             $rankChangedIcon = 'glyphicon glyphicon-chevron-right text-muted';
         }
 
         $rankChangedDetails = array();
-        $rankChangedDetails['changed'] = $rankChanged;
+        $rankChangedDetails['changed'] = $rankLastMonth - $rankNow;
         $rankChangedDetails['icon'] = $rankChangedIcon;
 
         return $rankChangedDetails;
