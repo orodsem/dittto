@@ -1,5 +1,5 @@
 /.web-server-pid
-/app/config/parameters/parameters*.yml
+/app/config/parameters/*
 /app/bootstrap.php.cache
 /build/
 /phpunit.xml
