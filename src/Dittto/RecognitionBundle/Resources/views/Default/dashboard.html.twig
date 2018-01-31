@@ -65,7 +65,7 @@
                                 <div class="row">
                                     {# Progress bar #}
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <h3 class="chart-header">My Dittto Goal</h3>
+                                        <h3 class="chart-header">My Dittto Journey</h3>
                                         <div class="total-recognition-box col-md-12">
                                             <div class="row">
                                                 <div class="col-md-12 gel-long-primer"></div>
@@ -123,7 +123,7 @@
 
                             <div class="row">
                                 <div class="col-md-10 info-box strong">Since last month</div>
-                                <div class="col-md-2  info-box strong"><span class="{{ rankChanged['icon'] }}"/></div>
+                                <div class="col-md-2  info-box strong"><span class="{{ rankChanged['icon'] }}"></span></div>
                             </div>
                         </div>
                     </div>
@@ -221,7 +221,7 @@
 
                 // Optional; add a title and set the width and height of the chart
                 var optionsReceived = {
-                    'title':'{{ app.user.firstName }} ~ all school [received]',
+                    'title':'{{ app.user.firstName }} vs. All',
                     'pieSliceText': 'value',    // if remove it, displays % instead of value
                     'slices': {                 // TODO: this should be dynamically generated from DB
                         0: { color: '#78B3C6' },
@@ -232,7 +232,7 @@
                 };
 
                 var optionsSent = {
-                    'title':'{{ app.user.firstName }} ~ all school [sent]',
+                    'title':'{{ app.user.firstName }} vs. All',
                     'pieSliceText': 'value',    // if remove it, displays % instead of value
                     'slices': {                 // TODO: this should be dynamically generated from DB
                         0: { color: '#78B3C6' },
