@@ -56,8 +56,8 @@
                 {% endif %}
                 
                 <div class="container-fluid dashboard-graphs-container">
-                    
                     <div class="row">
+                        {# Left column #}
                         <div class="col-md-10 col-xs-10">
                             {# Rank details #}
                             <div class="container-fluid">
@@ -65,7 +65,7 @@
                                 <div class="row">
                                     {# Progress bar #}
                                     <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <h3 class="chart-header">Total Sent</h3>
+                                        <h3 class="chart-header">My Dittto Goal</h3>
                                         <div class="total-recognition-box col-md-12">
                                             <div class="row">
                                                 <div class="col-md-12 gel-long-primer"></div>
@@ -91,64 +91,41 @@
                                 {# Charts #}
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <h3 class="chart-header">Recognition Sent</h3>
+                                        <h3 class="chart-header">Dittto Sent</h3>
                                         <div id="piechart-sent"></div>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <h3 class="chart-header">Recognition Received</h3>
+                                        <h3 class="chart-header">Dittto Received</h3>
                                         <div id="piechart-received"></div>
                                     </div>
                                 </div>
                             </div>    
                         </div>
 
+                        {# Right column #}
                         <div class="col-md-2 col-xs-2">
-                            <div class="info-box rank-box">
-                                <div class="strong">Your Rank</div>
-                                <div>
+                            <div class="row">
+                                <div class="col-md-8 info-box strong">Your Rank</div>
+                                <div class="col-md-4 info-box">
                                     {{ rankCurrentDetails['rank'] }}
                                 </div>
-                                <div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8 info-box">
+                                    {{ rankCurrentDetails['rankMessage'] }}
+                                </div>
+
+                                <div class="col-md-4 info-box">
                                     <img class="rank-img" src="{{ asset( rankCurrentDetails['imagePath']) }}" alt="">
-                                    <p>{{ rankCurrentDetails['rankMessage'] }}</p>
                                 </div>
                             </div>
 
-                            <div class="info-box">
-                                <div class="strong">Since last month</div>
-                                <div>
-                                    <span class="{{ rankChanged['icon'] }} strong"></span>
-                                </div>
+                            <div class="row">
+                                <div class="col-md-10 info-box strong">Since last month</div>
+                                <div class="col-md-2  info-box strong"><span class="{{ rankChanged['icon'] }}"/></div>
                             </div>
                         </div>
-
-                        {#<div class="side-info">#}
-                            {#<div class="info-box rank-box">#}
-                                {#<div class="strong">Your Rank</div>#}
-                                {#<div>#}
-                                    {#{{ rankCurrentDetails['rank'] }}#}
-                                {#</div>#}
-                                {#<div>#}
-                                    {#<img class="rank-img" src="{{ asset( rankCurrentDetails['imagePath']) }}" alt="">#}
-                                    {#<p>{{ rankCurrentDetails['rankMessage'] }}</p>#}
-                                {#</div>#}
-                            {#</div>#}
-
-                            {#<div class="info-box">#}
-                                {#<div class="strong">Since last month</div>#}
-                                {#<div>#}
-                                    {#<span class="{{ rankChanged['icon'] }} strong"></span>#}
-                                {#</div>#}
-                            {#</div>#}
-
-                            {#<div class="info-box">#}
-                                {#<h3>Your Info</h3>#}
-                                {#<div>#}
-                                    {#<img class="rank-img" src="{{ asset( rankCurrentDetails['imagePath']) }}" alt="">#}
-                                    {#<p>Other info here..</p>#}
-                                {#</div>#}
-                            {#</div>#}
-                        {#</div>#}
                     </div>
 
                 </div>

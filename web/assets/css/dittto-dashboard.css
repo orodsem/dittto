@@ -1,7 +1,5 @@
 .dashboard-graphs-container{
     position:relative;
-    padding-right:90px;
-    padding-left:0
 }
 
 .dashboard-page .side-info{
@@ -24,7 +22,7 @@
 }
 
 .dashboard-page .info-box img{
-    width:35px;
+    width:30px;
     height:35px;
 }
 
