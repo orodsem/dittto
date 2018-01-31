@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recognition{% endblock %}
+{% block title %}Dittto{% endblock %}
 
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset( 'assets/css/dittto-recognise.css') }}" />
 {% endblock %}
 
 {% block body %}
-    <h1 class="page-header-1">Recognise User</h1>
+    <h1 class="page-header-1">Dittto a Champion</h1>
     <div class="container page-content recognise-user-page">
         <div class="container">
             <div class="row">
@@ -32,7 +32,7 @@
                         </div>
                         
                         <div>
-                            <button type="submit" id="recognition_save" name="recognition[save]" class="btn btn-primary">Recognise</button>
+                            <button type="submit" id="recognition_save" name="recognition[save]" class="btn btn-primary">Dittto</button>
                         </div>
 
                         {{ form_widget(form._token) }}
