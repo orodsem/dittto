@@ -33,6 +33,8 @@ class AppKernel extends Kernel
                 $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
                 $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
             }
+        } else {
+            $this->environment = explode('.', $_SERVER['HTTP_HOST'])[1];
         }
 
         return $bundles;
