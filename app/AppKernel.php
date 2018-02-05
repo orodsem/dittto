@@ -37,7 +37,10 @@ class AppKernel extends Kernel
             if (count($_SERVER['HTTP_HOST']) === 1) {
                 $this->environment = explode('.', $_SERVER['HTTP_HOST'])[1];
 
-                if ($this->environment === 'www') {
+                $invalidEnvKeys = array(
+                    'www', 'com', 'au', 'http', 'https'
+                );
+                if (in_array($this->environment, $invalidEnvKeys)) {
                     // invalid environment, back to default
                     $this->environment = 'prod';
                 }
