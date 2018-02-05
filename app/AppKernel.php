@@ -34,7 +34,14 @@ class AppKernel extends Kernel
                 $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
             }
         } else {
-            $this->environment = explode('.', $_SERVER['HTTP_HOST'])[1];
+            if (count($_SERVER['HTTP_HOST']) === 1) {
+                $this->environment = explode('.', $_SERVER['HTTP_HOST'])[1];
+
+                if ($this->environment === 'www') {
+                    // invalid environment, back to default
+                    $this->environment = 'prod';
+                }
+            }
         }
 
         return $bundles;
@@ -57,6 +64,8 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+        if (file_exists($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml')) {
+            $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
+        }
     }
 }
