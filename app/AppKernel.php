@@ -36,14 +36,6 @@ class AppKernel extends Kernel
         } else {
             if (count($_SERVER['HTTP_HOST']) === 1) {
                 $this->environment = explode('.', $_SERVER['HTTP_HOST'])[1];
-
-                $invalidEnvKeys = array(
-                    'www', 'com', 'au', 'http', 'https'
-                );
-                if (in_array($this->environment, $invalidEnvKeys)) {
-                    // invalid environment, back to default
-                    $this->environment = 'prod';
-                }
             }
         }
 
@@ -69,6 +61,8 @@ class AppKernel extends Kernel
     {
         if (file_exists($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml')) {
             $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
+        } else {
+            $loader->load($this->getRootDir().'/config/config_prod.yml');
         }
     }
 }
