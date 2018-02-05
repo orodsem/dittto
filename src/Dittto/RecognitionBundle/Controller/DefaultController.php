@@ -151,12 +151,22 @@ class DefaultController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            // keep track of receivers to be displayed in  success message
+            $receiversName = array();
             $recognition->setSender($user);
             foreach ($recognition->getReceivers() as $receiver) {
                 $recognitionReceived = new RecognitionReceived();
                 $recognitionReceived->setReceiver($receiver);
                 $recognition->addRecognitionReceived($recognitionReceived);
+
+                $receiversName[] = $receiver->getFullName();
             }
+
+            // add success message
+            $this->addFlash(
+                'success',
+                'Great! You just Diiito ' . implode(',', $receiversName) . ''
+            );
 
             $em->persist($recognition);
             $em->flush();

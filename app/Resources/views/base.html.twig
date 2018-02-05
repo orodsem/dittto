@@ -23,7 +23,6 @@
         <link rel="icon" type="image/x-icon" href="{{ asset(app.environment ~ '/img/favicon.ico') }}" />
     </head>
     <body>
-        
         {# display the env ONLY if it's in DEV #}
         {% if app.environment in ['dev'] %}
             <span class="label label-info env-label-info">{{ app.environment }}</span>            
@@ -98,6 +97,11 @@
             
             <!-- Main Content -->
             <div class="main-content">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
                 {% block body %}{% endblock %}
             </div>
             
