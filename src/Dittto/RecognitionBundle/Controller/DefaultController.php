@@ -165,7 +165,7 @@ class DefaultController extends Controller
             // add success message
             $this->addFlash(
                 'success',
-                'Great! You just Diiito ' . implode(',', $receiversName) . ''
+                'Great! You just Dittto ' . implode(',', $receiversName) . ''
             );
 
             $em->persist($recognition);

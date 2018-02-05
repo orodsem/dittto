@@ -97,10 +97,11 @@
             
             <!-- Main Content -->
             <div class="main-content">
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-success">
-                        {{ message }}
-                    </div>
+                {# TODO: in a seperate file and includ here #}
+                {% for type, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                          <div class="alert alert-{{type}}">{{message}}</div>
+                    {% endfor %}
                 {% endfor %}
                 {% block body %}{% endblock %}
             </div>
