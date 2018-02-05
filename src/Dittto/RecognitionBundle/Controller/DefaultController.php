@@ -72,7 +72,7 @@ class DefaultController extends Controller
                 'totalRecognitionsGoal' => $totalRecognitionsGoal,
                 'rankCurrentDetails' => $rankCurrentDetails,
                 'rankChanged' => $rankChanged,
-                'sentPercentage' => $sentPercentage . '%'
+                'sentPercentage' => $sentPercentage
                 )
         );
     }

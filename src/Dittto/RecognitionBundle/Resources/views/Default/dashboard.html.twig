@@ -73,15 +73,15 @@
                                             </div>
 
                                             <div class="percentage-bar-chart__chart-wrapper">
-                                                <span class="percentage-bar-chart__percentage gel-pica">{{ sentPercentage }}</span>
+                                                <span class="percentage-bar-chart__percentage gel-pica">{{ sentPercentage ~ '%' }}</span>
                                                 <div class="percentage-bar-chart__chart">
                                                     <span class="percentage-bar-chart__total-bar">
-                                                        <span class="percentage-bar-chart__percentage-bar" style="width:{{ sentPercentage }};">
+                                                        <span class="percentage-bar-chart__percentage-bar" style="width:{{ sentPercentage >= 100 ? '100%' : sentPercentage ~ '%' }};">
                                                             <span class="percentage-bar-chart__figure gel-minion">{{ totalSentByUser }}</span>
                                                         </span>
                                                     </span>
                                                 </div>
-                                                <span class="percentage-bar-chart__total gel-pica shots-total ">{{ totalRecognitionsGoal }}</span>
+                                                <span class="strong percentage-bar-chart__total gel-pica shots-total ">{{ totalRecognitionsGoal }}</span>
                                             </div>
                                         </div>
                                     </div>
