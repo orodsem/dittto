@@ -35,6 +35,12 @@ class DefaultController extends Controller
             // encrypt password
             $user->setPlainPassword($user->getPassword());
             $userManager->updateUser($user, true);
+
+            // add success message
+            $this->addFlash(
+                'success',
+                'Your profile successfully updated.'
+            );
         }
 
         return $this->render('DitttoUserBundle:Default:profile.html.twig',
@@ -59,6 +65,12 @@ class DefaultController extends Controller
             // encrypt password
             $user->setPlainPassword($user->getPassword());
             $userManager->updateUser($user, true);
+
+            // add success message
+            $this->addFlash(
+                'success',
+                'Your password successfully updated.'
+            );
         }
 
         return $this->render('DitttoUserBundle:Default:updatePassword.html.twig',
