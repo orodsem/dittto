@@ -50,7 +50,7 @@ class RecognitionType extends AbstractType
                 )
             ));
 
-        $builder->add('comment', TextareaType::class);
+        $builder->add('comment', TextareaType::class, array('required'   => false));
 
         $builder->add('save', SubmitType::class, array('label' => 'Dittto'));
 
