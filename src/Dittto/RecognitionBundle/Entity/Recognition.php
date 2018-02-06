@@ -52,6 +52,11 @@ class Recognition extends BaseEntity
     private $recognitionReceiveds;
 
     /**
+     * @ORM\Column(type="string", length=256, nullable=true)
+     */
+    private $comment;
+
+    /**
      * @ORM\Column(name="sent_at", type="datetime")
      */
     protected $sentAt;
@@ -192,5 +197,21 @@ class Recognition extends BaseEntity
     public function setRecognitionReceiveds($recognitionReceiveds)
     {
         $this->recognitionReceiveds = $recognitionReceiveds;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param mixed $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
     }
 }

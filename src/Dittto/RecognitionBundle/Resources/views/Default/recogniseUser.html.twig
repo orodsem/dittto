@@ -11,36 +11,38 @@
     <div class="container page-content recognise-user-page">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
-
-
-
-                    <form name="recognition" method="post">
+                <form name="recognition" method="post">
+                    <div class="col-md-12 input-group row">
                         {% for criteria in form.criteria.vars.choices %}
-                            <div class="input-group">
+                            <div class="col-md-6 criteria-box">
                                 <label for="recognition_criteria_{{ criteria.data.id }}">
                                     <input type="checkbox"
-                                        value="{{ criteria.data.id }}"
-                                        name="recognition[criteria][]"
-                                        id="recognition_criteria_{{ criteria.data.id }}"/>
+                                           value="{{ criteria.data.id }}"
+                                           name="recognition[criteria][]"
+                                           id="recognition_criteria_{{ criteria.data.id }}"/>
 
                                     <img src="{{ asset(criteria.data.image) }}" style="width: 50px; height: 50px;">
                                     {{ criteria.data.title }}
                                 </label>
                             </div>
                         {% endfor %}
-                        
-                        <div class="input-group">
-                            {{ form_widget(form.receivers, { 'attr': {'style': 'width:200px'} }) }}
-                        </div>
-                        
-                        <div>
-                            <button type="submit" id="recognition_save" name="recognition[save]" class="btn btn-primary">Dittto</button>
-                        </div>
+                    </div>
 
-                        {{ form_widget(form._token) }}
-                    </form>
-                </div>
+                    <div class="col-md-12 input-group row recognition-row">
+                        <div class="col-md-6">
+                            {{ form_widget(form.receivers, { 'attr': {'style': 'width:500px'}}) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_widget(form.comment, {'attr' : {'class' : 'form-control', 'rows' : '5', 'placeholder' : 'Comment'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="row recognition-row">
+                        <button type="submit" id="recognition_save" name="recognition[save]" class="btn btn-primary">Dittto</button>
+                    </div>
+
+                    {{ form_widget(form._token) }}
+                </form>
             </div>
         </div>
 

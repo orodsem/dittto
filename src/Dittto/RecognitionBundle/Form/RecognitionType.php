@@ -4,7 +4,9 @@ namespace Dittto\RecognitionBundle\Form;
 
 
 use Dittto\RecognitionBundle\Entity\Recognition;
+use Dittto\RecognitionBundle\Entity\Repository\CriteriaRepository;
 use Dittto\UserBundle\Entity\Repository\UserRepository;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -23,6 +25,9 @@ class RecognitionType extends AbstractType
         $builder->add('criteria',
             EntityType::class, array(
                 'class' => 'DitttoRecognitionBundle:Criteria',
+                'query_builder' => function(CriteriaRepository $repo) {
+                    return $repo->getVisible();
+                },
                 'choice_label' => 'title',
                 'multiple' => true,
                 'expanded' => true,
@@ -44,6 +49,8 @@ class RecognitionType extends AbstractType
                     new NotBlank(array('message' => 'Select receivers!'))
                 )
             ));
+
+        $builder->add('comment', TextareaType::class);
 
         $builder->add('save', SubmitType::class, array('label' => 'Dittto'));
 

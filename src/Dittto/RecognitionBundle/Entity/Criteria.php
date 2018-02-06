@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Dittto\RecognitionBundle\Entity\Repository\CriteriaRepository")
  * @ORM\Table(name="dittto_criteria")
  */
 class Criteria
@@ -37,6 +38,11 @@ class Criteria
      * @ORM\Column(type="string", unique=false, nullable=true)
      */
     private $image;
+
+    /**
+     * @ORM\Column(name="visible", type="boolean", nullable=true, options={"default" : 0})
+     */
+    private $visible;
 
     /**
      * @ORM\ManyToMany(targetEntity="Recognition", mappedBy="criteria")
@@ -143,5 +149,21 @@ class Criteria
     public function setRecognitions($recognitions)
     {
         $this->recognitions = $recognitions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * @param mixed $visible
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
     }
 }

@@ -6,7 +6,6 @@ use Dittto\SchoolBundle\Entity\Campus;
 use Dittto\SchoolBundle\Entity\Group;
 use Dittto\SchoolBundle\Entity\YearLevel;
 use Dittto\UserBundle\Entity\User;
-use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Doctrine\ORM\EntityRepository;
 
 class UserRepository extends EntityRepository
