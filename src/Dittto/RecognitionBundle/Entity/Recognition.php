@@ -78,14 +78,6 @@ class Recognition extends BaseEntity
     }
 
     /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return User
      */
     public function getSender()

@@ -10,3 +10,11 @@ dittto_security_check:
     path:     /check
     defaults: { _controller: DitttoSecurityBundle:Security:check }
 
+dittto_security_recovery-link:
+    path:     /recovery-link
+    defaults: { _controller: DitttoSecurityBundle:Security:recoveryLink }
+
+dittto_security_reset-password:
+    path:     /reset-password/{token}/{encyIdentifier}
+    defaults: { _controller: DitttoSecurityBundle:Security:resetPassword }
+

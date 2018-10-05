@@ -36,3 +36,6 @@ services:
 
     dateTime_service:
         class:  AppBundle\Service\DateTime\Date
+
+    security_service:
+        class:  AppBundle\Service\Security\Encryption
